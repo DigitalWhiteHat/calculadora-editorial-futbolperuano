@@ -1,0 +1,44 @@
+{
+  "Stewart Luya": {
+    "bio_verificable": true,
+    "perfil_social_enlazado": true,
+    "schema_autor_person": true,
+    "pct_consistencia_tematica": 44.9
+  },
+  "Gabriel Iberico": {
+    "bio_verificable": true,
+    "perfil_social_enlazado": true,
+    "schema_autor_person": true,
+    "pct_consistencia_tematica": 51.9
+  },
+  "Gabriel Rey": {
+    "bio_verificable": true,
+    "perfil_social_enlazado": true,
+    "schema_autor_person": true,
+    "pct_consistencia_tematica": 51.3
+  },
+  "Jorge Cruzalegui": {
+    "bio_verificable": true,
+    "perfil_social_enlazado": true,
+    "schema_autor_person": true,
+    "pct_consistencia_tematica": 21.2
+  },
+  "Joaquín Vásquez": {
+    "bio_verificable": true,
+    "perfil_social_enlazado": true,
+    "schema_autor_person": true,
+    "pct_consistencia_tematica": 46.1
+  },
+  "Robert Luna": {
+    "bio_verificable": true,
+    "perfil_social_enlazado": true,
+    "schema_autor_person": true,
+    "pct_consistencia_tematica": 42.8
+  },
+  "Enrique Giles": {
+    "bio_verificable": true,
+    "perfil_social_enlazado": true,
+    "schema_autor_person": true,
+    "pct_consistencia_tematica": 85.2
+  }
+}

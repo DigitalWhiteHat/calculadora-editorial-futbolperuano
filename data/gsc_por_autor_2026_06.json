@@ -1,0 +1,74 @@
+{
+  "Stewart Luya": {
+    "notas_totales": 155,
+    "notas_con_gsc": 116,
+    "pct_cobertura_gsc": 74.8,
+    "clics_busqueda": 10773.0,
+    "impresiones": 914709.0,
+    "posicion_promedio": 7.342060043139405,
+    "ctr_real": 0.011777516128080078,
+    "notas_top10": 109,
+    "ctr_esperado": 0.4976955112841738,
+    "ctr_indice": 0.6438885823764162
+  },
+  "Robert Luna": {
+    "notas_totales": 104,
+    "notas_con_gsc": 86,
+    "pct_cobertura_gsc": 82.7,
+    "clics_busqueda": 12587.0,
+    "impresiones": 327007.0,
+    "posicion_promedio": 5.378398994516934,
+    "ctr_real": 0.03849153076233842,
+    "notas_top10": 86,
+    "ctr_esperado": 0.5549724751285543,
+    "ctr_indice": 1.887185013746262
+  },
+  "Gabriel Iberico": {
+    "notas_totales": 178,
+    "notas_con_gsc": 147,
+    "pct_cobertura_gsc": 82.6,
+    "clics_busqueda": 18057.0,
+    "impresiones": 1167861.0,
+    "posicion_promedio": 5.588005207811546,
+    "ctr_real": 0.015461600310310901,
+    "notas_top10": 147,
+    "ctr_esperado": 0.5475958135552185,
+    "ctr_indice": 0.7682721026877196
+  },
+  "Gabriel Rey": {
+    "notas_totales": 103,
+    "notas_con_gsc": 79,
+    "pct_cobertura_gsc": 76.7,
+    "clics_busqueda": 12297.0,
+    "impresiones": 815456.0,
+    "posicion_promedio": 6.457171128791743,
+    "ctr_real": 0.01507990621198446,
+    "notas_top10": 76,
+    "ctr_esperado": 0.5205772636963045,
+    "ctr_indice": 0.7881959237695253
+  },
+  "Jorge Cruzalegui": {
+    "notas_totales": 132,
+    "notas_con_gsc": 110,
+    "pct_cobertura_gsc": 83.3,
+    "clics_busqueda": 17769.0,
+    "impresiones": 1204939.0,
+    "posicion_promedio": 5.423735118541275,
+    "ctr_real": 0.014746804610025902,
+    "notas_top10": 110,
+    "ctr_esperado": 0.5533444201808616,
+    "ctr_indice": 0.7251421191631404
+  },
+  "Enrique Giles": {
+    "notas_totales": 23,
+    "notas_con_gsc": 18,
+    "pct_cobertura_gsc": 78.3,
+    "clics_busqueda": 1625.0,
+    "impresiones": 64436.0,
+    "posicion_promedio": 4.790108790117326,
+    "ctr_real": 0.025218821776646597,
+    "notas_top10": 18,
+    "ctr_esperado": 0.5779351619950179,
+    "ctr_indice": 1.1873162582569357
+  }
+}

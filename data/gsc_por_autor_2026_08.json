@@ -1,0 +1,86 @@
+{
+  "Stewart Luya": {
+    "notas_totales": 108,
+    "notas_con_gsc": 82,
+    "pct_cobertura_gsc": 75.9,
+    "clics_busqueda": 18166.0,
+    "impresiones": 1239804.0,
+    "posicion_promedio": 6.79630779542573,
+    "ctr_real": 0.014652316011240486,
+    "notas_top10": 82,
+    "ctr_esperado": 0.5113337234871782,
+    "ctr_indice": 0.9646598497681456
+  },
+  "Gabriel Iberico": {
+    "notas_totales": 124,
+    "notas_con_gsc": 101,
+    "pct_cobertura_gsc": 81.5,
+    "clics_busqueda": 13166.0,
+    "impresiones": 1692782.0,
+    "posicion_promedio": 6.480261445360358,
+    "ctr_real": 0.007777729205532668,
+    "notas_top10": 101,
+    "ctr_esperado": 0.5199272923327354,
+    "ctr_indice": 0.5035963407906335
+  },
+  "Gabriel Rey": {
+    "notas_totales": 58,
+    "notas_con_gsc": 53,
+    "pct_cobertura_gsc": 91.4,
+    "clics_busqueda": 7771.0,
+    "impresiones": 1349246.0,
+    "posicion_promedio": 6.963104496881963,
+    "ctr_real": 0.005759513091015278,
+    "notas_top10": 53,
+    "ctr_esperado": 0.5070128664220817,
+    "ctr_indice": 0.38241872736387594
+  },
+  "Jorge Cruzalegui": {
+    "notas_totales": 71,
+    "notas_con_gsc": 53,
+    "pct_cobertura_gsc": 74.6,
+    "clics_busqueda": 5321.0,
+    "impresiones": 719569.0,
+    "posicion_promedio": 6.9884704177083785,
+    "ctr_real": 0.007394704329953069,
+    "notas_top10": 53,
+    "ctr_esperado": 0.5063680017843168,
+    "ctr_indice": 0.4916170341139268
+  },
+  "Joaquín Vásquez": {
+    "notas_totales": 115,
+    "notas_con_gsc": 67,
+    "pct_cobertura_gsc": 58.3,
+    "clics_busqueda": 5014.0,
+    "impresiones": 629193.0,
+    "posicion_promedio": 6.009122049991019,
+    "ctr_real": 0.0079689379888206,
+    "notas_top10": 66,
+    "ctr_esperado": 0.5338461822587607,
+    "ctr_indice": 0.5025238388398534
+  },
+  "Robert Luna": {
+    "notas_totales": 47,
+    "notas_con_gsc": 45,
+    "pct_cobertura_gsc": 95.7,
+    "clics_busqueda": 8818.0,
+    "impresiones": 190643.0,
+    "posicion_promedio": 5.275457950200113,
+    "ctr_real": 0.046253993065572825,
+    "notas_top10": 45,
+    "ctr_esperado": 0.5587389431593942,
+    "ctr_indice": 2.786843954141744
+  },
+  "Enrique Giles": {
+    "notas_totales": 3,
+    "notas_con_gsc": 3,
+    "pct_cobertura_gsc": 100.0,
+    "clics_busqueda": 171.0,
+    "impresiones": 6828.0,
+    "posicion_promedio": 3.989439074399532,
+    "ctr_real": 0.025043936731107205,
+    "notas_top10": 3,
+    "ctr_esperado": 0.6161420611071152,
+    "ctr_indice": 1.368340254981821
+  }
+}

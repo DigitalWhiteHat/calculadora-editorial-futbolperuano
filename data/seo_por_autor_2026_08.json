@@ -1,0 +1,429 @@
+{
+  "Enrique Giles": {
+    "notas_evaluadas": 3,
+    "pct_cumplimiento_prom": 75.0,
+    "semaforo": "🟡",
+    "desglose_items": {
+      "h1_70_170": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      },
+      "title_50_65": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 3
+      },
+      "meta_desc_150_170": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 3
+      },
+      "meta_desc_no_repite_h1": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      },
+      "primer_parrafo_180": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      },
+      "h2_estructura": {
+        "pct_cumple": 33.3,
+        "n_evaluadas": 3
+      },
+      "extension_400": {
+        "pct_cumple": 66.7,
+        "n_evaluadas": 3
+      },
+      "tags_1_5": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      },
+      "enlaces_min_2": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      },
+      "enlace_parrafo_1_3": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      },
+      "ancla_valida": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      },
+      "imagen_alt": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 3
+      }
+    },
+    "palabras_promedio": 394.7,
+    "caracteres_promedio": 2610.7,
+    "notas_verde": 1,
+    "notas_amarillo": 2,
+    "notas_rojo": 0,
+    "semaforo_verde_pct": 33.3
+  },
+  "Robert Luna": {
+    "notas_evaluadas": 47,
+    "pct_cumplimiento_prom": 74.8,
+    "semaforo": "🟡",
+    "desglose_items": {
+      "h1_70_170": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 47
+      },
+      "title_50_65": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 47
+      },
+      "meta_desc_150_170": {
+        "pct_cumple": 2.1,
+        "n_evaluadas": 47
+      },
+      "meta_desc_no_repite_h1": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 47
+      },
+      "primer_parrafo_180": {
+        "pct_cumple": 97.9,
+        "n_evaluadas": 47
+      },
+      "h2_estructura": {
+        "pct_cumple": 87.2,
+        "n_evaluadas": 47
+      },
+      "extension_400": {
+        "pct_cumple": 21.3,
+        "n_evaluadas": 47
+      },
+      "tags_1_5": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 47
+      },
+      "enlaces_min_2": {
+        "pct_cumple": 97.9,
+        "n_evaluadas": 47
+      },
+      "enlace_parrafo_1_3": {
+        "pct_cumple": 97.9,
+        "n_evaluadas": 47
+      },
+      "ancla_valida": {
+        "pct_cumple": 97.9,
+        "n_evaluadas": 47
+      },
+      "imagen_alt": {
+        "pct_cumple": 95.7,
+        "n_evaluadas": 47
+      }
+    },
+    "palabras_promedio": 367.7,
+    "caracteres_promedio": 2169.9,
+    "notas_verde": 10,
+    "notas_amarillo": 35,
+    "notas_rojo": 2,
+    "semaforo_verde_pct": 21.3
+  },
+  "Joaquín Vásquez": {
+    "notas_evaluadas": 115,
+    "pct_cumplimiento_prom": 74.3,
+    "semaforo": "🟡",
+    "desglose_items": {
+      "h1_70_170": {
+        "pct_cumple": 99.1,
+        "n_evaluadas": 115
+      },
+      "title_50_65": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 115
+      },
+      "meta_desc_150_170": {
+        "pct_cumple": 5.2,
+        "n_evaluadas": 115
+      },
+      "meta_desc_no_repite_h1": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 115
+      },
+      "primer_parrafo_180": {
+        "pct_cumple": 99.1,
+        "n_evaluadas": 115
+      },
+      "h2_estructura": {
+        "pct_cumple": 72.2,
+        "n_evaluadas": 115
+      },
+      "extension_400": {
+        "pct_cumple": 39.1,
+        "n_evaluadas": 115
+      },
+      "tags_1_5": {
+        "pct_cumple": 99.1,
+        "n_evaluadas": 115
+      },
+      "enlaces_min_2": {
+        "pct_cumple": 98.3,
+        "n_evaluadas": 115
+      },
+      "enlace_parrafo_1_3": {
+        "pct_cumple": 98.3,
+        "n_evaluadas": 115
+      },
+      "ancla_valida": {
+        "pct_cumple": 84.3,
+        "n_evaluadas": 115
+      },
+      "imagen_alt": {
+        "pct_cumple": 96.5,
+        "n_evaluadas": 115
+      }
+    },
+    "palabras_promedio": 358.9,
+    "caracteres_promedio": 2256.9,
+    "notas_verde": 23,
+    "notas_amarillo": 91,
+    "notas_rojo": 1,
+    "semaforo_verde_pct": 20.0
+  },
+  "Stewart Luya": {
+    "notas_evaluadas": 108,
+    "pct_cumplimiento_prom": 73.2,
+    "semaforo": "🟡",
+    "desglose_items": {
+      "h1_70_170": {
+        "pct_cumple": 96.3,
+        "n_evaluadas": 108
+      },
+      "title_50_65": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 108
+      },
+      "meta_desc_150_170": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 108
+      },
+      "meta_desc_no_repite_h1": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 108
+      },
+      "primer_parrafo_180": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 108
+      },
+      "h2_estructura": {
+        "pct_cumple": 75.0,
+        "n_evaluadas": 108
+      },
+      "extension_400": {
+        "pct_cumple": 23.1,
+        "n_evaluadas": 108
+      },
+      "tags_1_5": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 108
+      },
+      "enlaces_min_2": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 108
+      },
+      "enlace_parrafo_1_3": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 108
+      },
+      "ancla_valida": {
+        "pct_cumple": 84.3,
+        "n_evaluadas": 108
+      },
+      "imagen_alt": {
+        "pct_cumple": 99.1,
+        "n_evaluadas": 108
+      }
+    },
+    "palabras_promedio": 307.1,
+    "caracteres_promedio": 1966.1,
+    "notas_verde": 8,
+    "notas_amarillo": 96,
+    "notas_rojo": 4,
+    "semaforo_verde_pct": 7.4
+  },
+  "Jorge Cruzalegui": {
+    "notas_evaluadas": 71,
+    "pct_cumplimiento_prom": 73.0,
+    "semaforo": "🟡",
+    "desglose_items": {
+      "h1_70_170": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 71
+      },
+      "title_50_65": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 71
+      },
+      "meta_desc_150_170": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 71
+      },
+      "meta_desc_no_repite_h1": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 71
+      },
+      "primer_parrafo_180": {
+        "pct_cumple": 98.6,
+        "n_evaluadas": 71
+      },
+      "h2_estructura": {
+        "pct_cumple": 57.7,
+        "n_evaluadas": 71
+      },
+      "extension_400": {
+        "pct_cumple": 25.4,
+        "n_evaluadas": 71
+      },
+      "tags_1_5": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 71
+      },
+      "enlaces_min_2": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 71
+      },
+      "enlace_parrafo_1_3": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 71
+      },
+      "ancla_valida": {
+        "pct_cumple": 94.4,
+        "n_evaluadas": 71
+      },
+      "imagen_alt": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 71
+      }
+    },
+    "palabras_promedio": 357.1,
+    "caracteres_promedio": 2089.0,
+    "notas_verde": 1,
+    "notas_amarillo": 68,
+    "notas_rojo": 2,
+    "semaforo_verde_pct": 1.4
+  },
+  "Gabriel Rey": {
+    "notas_evaluadas": 58,
+    "pct_cumplimiento_prom": 72.1,
+    "semaforo": "🟡",
+    "desglose_items": {
+      "h1_70_170": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 58
+      },
+      "title_50_65": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 58
+      },
+      "meta_desc_150_170": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 58
+      },
+      "meta_desc_no_repite_h1": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 58
+      },
+      "primer_parrafo_180": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 58
+      },
+      "h2_estructura": {
+        "pct_cumple": 77.6,
+        "n_evaluadas": 58
+      },
+      "extension_400": {
+        "pct_cumple": 20.7,
+        "n_evaluadas": 58
+      },
+      "tags_1_5": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 58
+      },
+      "enlaces_min_2": {
+        "pct_cumple": 98.3,
+        "n_evaluadas": 58
+      },
+      "enlace_parrafo_1_3": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 58
+      },
+      "ancla_valida": {
+        "pct_cumple": 96.6,
+        "n_evaluadas": 58
+      },
+      "imagen_alt": {
+        "pct_cumple": 72.4,
+        "n_evaluadas": 58
+      }
+    },
+    "palabras_promedio": 281.3,
+    "caracteres_promedio": 1676.6,
+    "notas_verde": 7,
+    "notas_amarillo": 47,
+    "notas_rojo": 4,
+    "semaforo_verde_pct": 12.1
+  },
+  "Gabriel Iberico": {
+    "notas_evaluadas": 124,
+    "pct_cumplimiento_prom": 71.4,
+    "semaforo": "🟡",
+    "desglose_items": {
+      "h1_70_170": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 124
+      },
+      "title_50_65": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 124
+      },
+      "meta_desc_150_170": {
+        "pct_cumple": 0.0,
+        "n_evaluadas": 124
+      },
+      "meta_desc_no_repite_h1": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 124
+      },
+      "primer_parrafo_180": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 124
+      },
+      "h2_estructura": {
+        "pct_cumple": 8.9,
+        "n_evaluadas": 124
+      },
+      "extension_400": {
+        "pct_cumple": 58.1,
+        "n_evaluadas": 124
+      },
+      "tags_1_5": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 124
+      },
+      "enlaces_min_2": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 124
+      },
+      "enlace_parrafo_1_3": {
+        "pct_cumple": 99.2,
+        "n_evaluadas": 124
+      },
+      "ancla_valida": {
+        "pct_cumple": 90.3,
+        "n_evaluadas": 124
+      },
+      "imagen_alt": {
+        "pct_cumple": 100.0,
+        "n_evaluadas": 124
+      }
+    },
+    "palabras_promedio": 437.9,
+    "caracteres_promedio": 2782.0,
+    "notas_verde": 2,
+    "notas_amarillo": 116,
+    "notas_rojo": 6,
+    "semaforo_verde_pct": 1.6
+  }
+}

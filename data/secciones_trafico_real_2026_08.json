@@ -1,0 +1,307 @@
+{
+  "liga-1": {
+    "trafico_mensual": 391000.0,
+    "canal": "Organic Search",
+    "pct_canal": 82.3
+  },
+  "partidos-por-tv": {
+    "trafico_mensual": 121156.0,
+    "canal": "Organic Search",
+    "pct_canal": 77.5
+  },
+  "liga-3": {
+    "trafico_mensual": 118557.0,
+    "canal": "Organic Search",
+    "pct_canal": 86.7
+  },
+  "liga-voley": {
+    "trafico_mensual": 91806.0,
+    "canal": "Organic Search",
+    "pct_canal": 74.9
+  },
+  "en-vivo": {
+    "trafico_mensual": 83772.0,
+    "canal": "Organic Search",
+    "pct_canal": 83.3
+  },
+  "copa-peru": {
+    "trafico_mensual": 68913.0,
+    "canal": "Organic Search",
+    "pct_canal": 74.9
+  },
+  "futbol-de-menores": {
+    "trafico_mensual": 50685.0,
+    "canal": "Organic Search",
+    "pct_canal": 91.1
+  },
+  "liga-2": {
+    "trafico_mensual": 47677.0,
+    "canal": "Organic Search",
+    "pct_canal": 74.8
+  },
+  "futbol-femenino": {
+    "trafico_mensual": 42747.0,
+    "canal": "Organic Search",
+    "pct_canal": 82.3
+  },
+  "home": {
+    "trafico_mensual": 39345.0,
+    "canal": "Organic Search",
+    "pct_canal": 60.4
+  },
+  "peru": {
+    "trafico_mensual": 33212.0,
+    "canal": "Organic Search",
+    "pct_canal": 85.0
+  },
+  "copa-sudamericana": {
+    "trafico_mensual": 24448.0,
+    "canal": "Organic Search",
+    "pct_canal": 54.9
+  },
+  "peruanos-en-el-exterior": {
+    "trafico_mensual": 16700.0,
+    "canal": "Organic Search",
+    "pct_canal": 59.2
+  },
+  "futbol-internacional": {
+    "trafico_mensual": 9265.0,
+    "canal": "Organic Search",
+    "pct_canal": 55.1
+  },
+  "noticias": {
+    "trafico_mensual": 7753.0,
+    "canal": "Organic Search",
+    "pct_canal": 58.6
+  },
+  "copa-de-la-liga": {
+    "trafico_mensual": 5827.0,
+    "canal": "Organic Search",
+    "pct_canal": 89.0
+  },
+  "seleccion": {
+    "trafico_mensual": 5716.0,
+    "canal": "Organic Search",
+    "pct_canal": 45.2
+  },
+  "buscador": {
+    "trafico_mensual": 5015.0,
+    "canal": "Organic Search",
+    "pct_canal": 80.4
+  },
+  "tag": {
+    "trafico_mensual": 4399.0,
+    "canal": "Organic Search",
+    "pct_canal": 75.7
+  },
+  "copa-libertadores": {
+    "trafico_mensual": 3536.0,
+    "canal": "Organic Search",
+    "pct_canal": 63.4
+  },
+  "ultimos-sismos": {
+    "trafico_mensual": 3395.0,
+    "canal": "Unassigned",
+    "pct_canal": 68.2
+  },
+  "mundial": {
+    "trafico_mensual": 2081.0,
+    "canal": "Direct",
+    "pct_canal": 77.0
+  },
+  "resultados": {
+    "trafico_mensual": 1789.0,
+    "canal": "Organic Search",
+    "pct_canal": 72.4
+  },
+  "futsal": {
+    "trafico_mensual": 1441.0,
+    "canal": "Organic Search",
+    "pct_canal": 90.3
+  },
+  "liga-de-campeones": {
+    "trafico_mensual": 863.0,
+    "canal": "Organic Search",
+    "pct_canal": 73.3
+  },
+  "staff": {
+    "trafico_mensual": 709.0,
+    "canal": "Organic Search",
+    "pct_canal": 63.9
+  },
+  "segunda-division": {
+    "trafico_mensual": 682.0,
+    "canal": "Organic Search",
+    "pct_canal": 94.1
+  },
+  "ligas-y-torneos": {
+    "trafico_mensual": 533.0,
+    "canal": "Organic Search",
+    "pct_canal": 41.3
+  },
+  "descentralizado": {
+    "trafico_mensual": 508.0,
+    "canal": "Organic Search",
+    "pct_canal": 93.7
+  },
+  "fichajes": {
+    "trafico_mensual": 475.0,
+    "canal": "Organic Search",
+    "pct_canal": 91.4
+  },
+  "mas-deportes": {
+    "trafico_mensual": 441.0,
+    "canal": "Organic Search",
+    "pct_canal": 63.5
+  },
+  "top": {
+    "trafico_mensual": 307.0,
+    "canal": "Organic Search",
+    "pct_canal": 61.9
+  },
+  "eliminatorias": {
+    "trafico_mensual": 304.0,
+    "canal": "Organic Search",
+    "pct_canal": 66.4
+  },
+  "radio": {
+    "trafico_mensual": 209.0,
+    "canal": "Organic Search",
+    "pct_canal": 53.1
+  },
+  "europa-league": {
+    "trafico_mensual": 146.0,
+    "canal": "Organic Search",
+    "pct_canal": 63.0
+  },
+  "publicidad": {
+    "trafico_mensual": 141.0,
+    "canal": "Direct",
+    "pct_canal": 81.6
+  },
+  "copa-america": {
+    "trafico_mensual": 48.0,
+    "canal": "Organic Search",
+    "pct_canal": 58.3
+  },
+  "futbol-playa": {
+    "trafico_mensual": 48.0,
+    "canal": "Organic Search",
+    "pct_canal": 58.3
+  },
+  "copa-bicentenario": {
+    "trafico_mensual": 38.0,
+    "canal": "Organic Search",
+    "pct_canal": 81.6
+  },
+  "contactenos": {
+    "trafico_mensual": 36.0,
+    "canal": "Direct",
+    "pct_canal": 63.9
+  },
+  "copa-america-femenina": {
+    "trafico_mensual": 36.0,
+    "canal": "Organic Search",
+    "pct_canal": 72.2
+  },
+  "tools": {
+    "trafico_mensual": 30.0,
+    "canal": "Direct",
+    "pct_canal": 100.0
+  },
+  "PARTIDOS-POR-TV": {
+    "trafico_mensual": 29.0,
+    "canal": "Organic Search",
+    "pct_canal": 100.0
+  },
+  "lima-2019": {
+    "trafico_mensual": 29.0,
+    "canal": "Organic Search",
+    "pct_canal": 48.3
+  },
+  "peru-mundial-rusia": {
+    "trafico_mensual": 28.0,
+    "canal": "Organic Search",
+    "pct_canal": 71.4
+  },
+  "copa-america-brasil-2019": {
+    "trafico_mensual": 23.0,
+    "canal": "Organic Search",
+    "pct_canal": 65.2
+  },
+  "copa-america-2020": {
+    "trafico_mensual": 20.0,
+    "canal": "Organic Search",
+    "pct_canal": 100.0
+  },
+  "sudamericano-sub-17-peru-2019": {
+    "trafico_mensual": 18.0,
+    "canal": "Organic Search",
+    "pct_canal": 72.2
+  },
+  "sudamericano-sub-20-chile-2019": {
+    "trafico_mensual": 15.0,
+    "canal": "Organic Search",
+    "pct_canal": 80.0
+  },
+  "tokio-2021": {
+    "trafico_mensual": 13.0,
+    "canal": "Organic Search",
+    "pct_canal": 53.8
+  },
+  "galeria": {
+    "trafico_mensual": 11.0,
+    "canal": "Direct",
+    "pct_canal": 45.5
+  },
+  "olimpiadas": {
+    "trafico_mensual": 11.0,
+    "canal": "Direct",
+    "pct_canal": 63.6
+  },
+  "eurocopa-2020": {
+    "trafico_mensual": 10.0,
+    "canal": "Direct",
+    "pct_canal": 80.0
+  },
+  "preolimpico": {
+    "trafico_mensual": 6.0,
+    "canal": "Direct",
+    "pct_canal": 50.0
+  },
+  "sudamericano-sub-15-bolivia-2019": {
+    "trafico_mensual": 4.0,
+    "canal": "Organic Search",
+    "pct_canal": 50.0
+  },
+  "mundial-sub-20-polonia-2019": {
+    "trafico_mensual": 3.0,
+    "canal": "Organic Search",
+    "pct_canal": 100.0
+  },
+  "mundial-femenino-francia-2019": {
+    "trafico_mensual": 3.0,
+    "canal": "Organic Search",
+    "pct_canal": 66.7
+  },
+  "minuto": {
+    "trafico_mensual": 2.0,
+    "canal": "Direct",
+    "pct_canal": 100.0
+  },
+  "navidad": {
+    "trafico_mensual": 2.0,
+    "canal": "Organic Search",
+    "pct_canal": 100.0
+  },
+  "preolimpico-sub-23": {
+    "trafico_mensual": 2.0,
+    "canal": "Direct",
+    "pct_canal": 50.0
+  },
+  "prueba": {
+    "trafico_mensual": 2.0,
+    "canal": "Direct",
+    "pct_canal": 100.0
+  }
+}

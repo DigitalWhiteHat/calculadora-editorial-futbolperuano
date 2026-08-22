@@ -1,0 +1,116 @@
+[
+  {
+    "autor": "Gabriel Iberico",
+    "notas": 159,
+    "autor_url": "https://www.futbolperuano.com/staff/131/gabriel-iberico",
+    "secciones": {
+      "liga-1": 54,
+      "copa-libertadores": 24,
+      "peruanos-en-el-exterior": 20,
+      "copa-sudamericana": 11,
+      "peru": 10,
+      "seleccion": 9,
+      "partidos-por-tv": 7,
+      "liga-2": 5,
+      "liga-voley": 5,
+      "copa-peru": 4,
+      "futbol-internacional": 3,
+      "futbol-femenino": 2,
+      "futbol-de-menores": 2,
+      "liga-de-campeones": 1,
+      "liga-3": 1,
+      "mundial": 1
+    }
+  },
+  {
+    "autor": "Jorge Cruzalegui",
+    "notas": 148,
+    "autor_url": "https://www.futbolperuano.com/staff/58/jorge-cruzalegui",
+    "secciones": {
+      "liga-1": 34,
+      "peruanos-en-el-exterior": 32,
+      "copa-libertadores": 17,
+      "partidos-por-tv": 10,
+      "copa-peru": 10,
+      "futbol-femenino": 9,
+      "liga-voley": 9,
+      "liga-2": 9,
+      "copa-sudamericana": 5,
+      "liga-de-campeones": 3,
+      "futbol-de-menores": 3,
+      "seleccion": 2,
+      "peru": 2,
+      "liga-3": 2,
+      "futbol-internacional": 1
+    }
+  },
+  {
+    "autor": "Robert Luna",
+    "notas": 118,
+    "autor_url": "https://www.futbolperuano.com/staff/41/robert-luna",
+    "secciones": {
+      "copa-peru": 37,
+      "liga-1": 24,
+      "peru": 13,
+      "liga-3": 11,
+      "copa-libertadores": 11,
+      "seleccion": 6,
+      "mundial": 3,
+      "peruanos-en-el-exterior": 3,
+      "liga-2": 3,
+      "copa-sudamericana": 2,
+      "liga-voley": 2,
+      "futbol-femenino": 2,
+      "mas-deportes": 1
+    }
+  },
+  {
+    "autor": "Stewart Luya",
+    "notas": 107,
+    "autor_url": "https://www.futbolperuano.com/staff/53/stewart-luya",
+    "secciones": {
+      "liga-1": 23,
+      "copa-libertadores": 21,
+      "peruanos-en-el-exterior": 19,
+      "liga-voley": 17,
+      "liga-2": 11,
+      "futbol-femenino": 5,
+      "copa-sudamericana": 4,
+      "copa-peru": 3,
+      "futbol-de-menores": 2,
+      "home": 1,
+      "futbol-playa": 1
+    }
+  },
+  {
+    "autor": "Gabriel Rey",
+    "notas": 101,
+    "autor_url": "https://www.futbolperuano.com/staff/102/gabriel-rey",
+    "secciones": {
+      "liga-1": 28,
+      "copa-libertadores": 20,
+      "peruanos-en-el-exterior": 9,
+      "liga-voley": 8,
+      "futbol-femenino": 6,
+      "liga-2": 5,
+      "copa-peru": 5,
+      "seleccion": 5,
+      "copa-sudamericana": 4,
+      "peru": 4,
+      "partidos-por-tv": 3,
+      "mas-deportes": 1,
+      "futbol-de-menores": 1,
+      "liga-de-campeones": 1,
+      "mundial": 1
+    }
+  },
+  {
+    "autor": "Enrique Giles",
+    "notas": 19,
+    "autor_url": "https://www.futbolperuano.com/staff/16/enrique-giles",
+    "secciones": {
+      "futbol-de-menores": 18,
+      "mas-deportes": 1
+    }
+  }
+]
