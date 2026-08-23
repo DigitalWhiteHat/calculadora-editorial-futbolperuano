@@ -600,6 +600,20 @@ def secciones_trafico_real(periodo: str | None = None) -> dict:
     return {seg: meta["trafico_mensual"] * factor for seg, meta in secciones.items()}
 
 
+def secciones_trafico_historico() -> pd.DataFrame:
+    """Tráfico real de GA4 por sección, mes a mes (ene-ago 2026, 8 meses de censo
+    completo) -- para el gráfico "General" de Impacto algoritmo. Sin proyección
+    de fin de mes en agosto (dato bruto, 1-22 ago): la vista ya marca el mes
+    parcial por separado, mismo criterio que _tendencia_portal() en general.py."""
+    filas = []
+    for periodo, _ in PERIODOS_DISPONIBLES:
+        for seg, meta in _secciones_crudo(periodo).items():
+            if seg not in LABELS_SECCION:
+                continue
+            filas.append({"mes": periodo, "seccion": seg, "trafico": meta["trafico_mensual"]})
+    return pd.DataFrame(filas)
+
+
 def rendimiento_por_seccion(autor: str) -> pd.DataFrame:
     """Tráfico/nota real por sección para ESTE periodista, combinando los 8 meses
     reales disponibles (ene-ago 2026) -- misma profundidad que "en qué secciones

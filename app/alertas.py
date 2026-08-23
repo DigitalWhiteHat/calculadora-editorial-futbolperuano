@@ -56,7 +56,7 @@ def _alertas_tendencia():
         "🟡 3-4 meses seguidos · 🔴 5+ meses seguidos."
     )
     st.caption(
-        "⏸️ El mes en curso (agosto) no entra en este cálculo a propósito, mismo criterio que colombia.com: "
+        "⏸️ El mes en curso (agosto) no entra en este cálculo a propósito: "
         "un mes parcial mezclado con 7 meses completos distorsionaría la racha real (un mal arranque de mes "
         "no es lo mismo que una tendencia sostenida). Se incorpora solo cuando el mes cierra."
     )

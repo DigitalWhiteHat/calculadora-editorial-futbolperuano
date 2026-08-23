@@ -20,7 +20,7 @@ import streamlit as st
 import calculos as calc
 import datos_reales as dr
 from avatares import avatar_data_uri
-from estilos import card_value, delta_html, demo_banner, metrica_card, nota_row, pill, trafico_card
+from estilos import card_value, delta_html, info_banner, metrica_card, nota_row, pill, trafico_card
 from graficos import agregar_proyeccion, marcar_mes_parcial, texto_metodologia_proyeccion
 
 COLOR_ESTADO = {"green": "#16A34A", "blue": "#3457D5", "red": "#DC2626"}
@@ -145,7 +145,7 @@ def _estado_actual(fila):
         "EN RANGO": "Rendimiento dentro del rango esperado del equipo.",
         "EN ALERTA": "Eficiencia muy por debajo de la mediana del equipo este periodo (aviso de un solo "
                      "periodo — si además hay una racha real de 3+ meses seguidos así, aparece por separado "
-                     "en Alertas → Alertas de tendencia, igual que en colombia.com).",
+                     "en Alertas → Alertas de tendencia).",
     }
     _estado_card(label, color_key, descripciones[label])
 
@@ -422,8 +422,8 @@ def _rendimiento_por_seccion(meta):
     with st.container(border=True, key="card_entidades_fuertes"):
         st.subheader("En qué secciones le rinde escribir")
         st.caption(
-            "Tráfico/nota real por sección, combinando ene-ago 2026 (8 meses de censo completo, misma "
-            "profundidad que colombia.com). Confianza: 🟢 alta (≥10 notas) · 🟡 media "
+            "Tráfico/nota real por sección, combinando ene-ago 2026 (8 meses de censo completo). "
+            "Confianza: 🟢 alta (≥10 notas) · 🟡 media "
             "(3-9) · ⚪ baja (<3, indicativo)."
         )
         df = dr.rendimiento_por_seccion(meta["nombre"])
@@ -450,12 +450,12 @@ def _rendimiento_por_seccion(meta):
 
 def _pipeline_pendiente():
     with st.container(border=True, key="card_pipeline_pendiente"):
-        st.subheader("Pendiente — necesita más historial o un pipeline nuevo")
+        st.subheader("Pendiente — falta construir el pipeline de análisis de texto")
         st.caption(
-            "En colombia.com estas tarjetas existen y corren sobre minería de títulos/entidades acumulada "
-            "en su historial. Acá el dato base (roster, tráfico, Search Console) ya tiene la misma "
-            "profundidad real (ene-ago 2026, 8 meses) — lo que falta es construir la parte de análisis "
-            "de texto, no más historial. No se fabrica un resultado sin esa base:"
+            "El dato base (roster, tráfico, Search Console) ya tiene 8 meses reales de censo completo "
+            "(ene-ago 2026) — más historial no destraba esto. Lo que falta es un pipeline de minería de "
+            "títulos/entidades sobre ese historial, que todavía no está construido. No se fabrica un "
+            "resultado sin esa base:"
         )
         st.markdown(
             "- **Temas y entidades en los que le rinde/no le rinde** — necesita detección de entidades/temas "
@@ -508,9 +508,9 @@ def render(tabla, df_notas, slug: str, periodo=None):
     meta["seccion"] = dr.LABELS_SECCION.get(fila["seccion_raw"], fila["seccion_raw"])
     meta["beat"] = fila["beat"]
 
-    st.markdown(demo_banner(
+    st.markdown(info_banner(
         "Perfil real: roster, tráfico, engagement, Search Console y semáforo SEO (agosto) son datos reales. "
-        "Historial de 8 meses (ene-ago 2026) — misma profundidad que colombia.com. "
+        "Historial de 8 meses (ene-ago 2026), censo completo. "
         "Temas/entidades, ecuación de titulares y canibalización necesitan un pipeline nuevo (ver tarjeta "
         "\"Pendiente\" más abajo) — nunca fabricados."
     ), unsafe_allow_html=True)

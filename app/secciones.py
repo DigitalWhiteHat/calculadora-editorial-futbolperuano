@@ -82,7 +82,7 @@ def _eficiencia_por_seccion(df_notas):
     st.subheader("Cuántas notas produce cada sección — y qué tan bien le rinden")
     st.caption(
         "Esto NO depende de quién firmó la nota — cuenta todo artículo real con autor identificado, "
-        "acumulado en ene-ago 2026 (8 meses reales, misma profundidad que colombia.com)."
+        "acumulado en ene-ago 2026 (8 meses reales de censo completo)."
     )
     vista = df_notas.copy().sort_values("trafico_por_nota", ascending=False)
     vista["trafico_txt"] = vista["trafico"].apply(calc.formatear_numero)
@@ -174,7 +174,7 @@ def _simulador(df_notas):
 def _especializacion_periodistas(esp):
     st.subheader("Especialización real: dónde le rinde a cada periodista escribir")
     st.caption(
-        "Cruce periodista × sección con ene-ago 2026 (8 meses reales, misma profundidad que colombia.com). Confianza: "
+        "Cruce periodista × sección con ene-ago 2026 (8 meses reales de censo completo). Confianza: "
         "🟢 alta (≥10 notas) · 🟡 media (3-9) · ⚪ baja (<3, indicativo)."
     )
     icono_conf = {"alta": "🟢", "media": "🟡", "baja": "⚪"}

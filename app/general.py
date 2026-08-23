@@ -14,7 +14,7 @@ import streamlit as st
 import calculos as calc
 import datos_reales as dr
 from avatares import avatar_data_uri
-from estilos import BG_ESTADO, TXT_ESTADO, demo_banner, kpi_card, seccion_dificultad_row
+from estilos import BG_ESTADO, TXT_ESTADO, info_banner, kpi_card, seccion_dificultad_row
 from graficos import agregar_proyeccion, texto_metodologia_proyeccion
 
 COLOR_ESTADO = {"green": "#16A34A", "blue": "#3457D5", "red": "#DC2626"}
@@ -337,7 +337,7 @@ def render(tabla, periodo=None):
         "plataforma, no elegido por nosotros. " + seo_real_txt
         + "Sigue pendiente (marcado \"s/d\", nunca inventado): flags de IA y notas por dificultad."
     )
-    st.markdown(demo_banner(banner_txt), unsafe_allow_html=True)
+    st.markdown(info_banner(banner_txt), unsafe_allow_html=True)
 
     if tabla.empty:
         st.info("No hay datos para el periodo seleccionado.")

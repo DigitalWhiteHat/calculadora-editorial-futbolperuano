@@ -193,7 +193,7 @@ def render(tabla_periodistas):
     st.subheader("¿Quién puede reemplazar a quién?")
     st.caption(
         "Para cubrir vacaciones, incapacidades o permisos sin afectar el tráfico de la sección: "
-        "candidatos con experiencia REAL de ene-ago 2026 (8 meses, misma profundidad que colombia.com) en la sección "
+        "candidatos con experiencia REAL de ene-ago 2026 (8 meses de censo completo) en la sección "
         "principal de cada periodista. Confianza: 🟢 alta (≥10 notas) · 🟡 media (3-9) · ⚪ baja (<3). "
         "No mide calidad editorial — solo si el candidato ya genera tráfico comparable ahí mismo."
     )

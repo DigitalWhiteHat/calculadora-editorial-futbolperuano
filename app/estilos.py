@@ -149,6 +149,10 @@ div[class*="st-key-card_"] {
     background: #FEF3C7; border: 1px solid #FDE68A; color: #92400E;
     border-radius: 10px; padding: 10px 16px; font-size: 1rem; margin-bottom: 16px;
 }
+.cp-info-banner {
+    background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF;
+    border-radius: 10px; padding: 10px 16px; font-size: 1rem; margin-bottom: 16px;
+}
 
 @media (prefers-color-scheme: dark) {
     div[class*="st-key-card_"],
@@ -163,6 +167,7 @@ div[class*="st-key-card_"] {
     .cp-nota-bar-track { background: #2A2D34; }
     .cp-nota-rank { background: #2A2D34; color: #94A3B8; }
     .cp-demo-banner { background: #3A2E13; border-color: #574119; color: #FCD34D; }
+    .cp-info-banner { background: #1E293B; border-color: #334155; color: #93C5FD; }
 }
 </style>
 """
@@ -368,3 +373,10 @@ def demo_banner(texto: str) -> str:
     """Aviso explícito de que los datos en pantalla son simulados/placeholder --
     Principio 2 del espejo: nunca dejar que un dato de relleno se vea como real."""
     return f'<div class="cp-demo-banner">⚠️ {html.escape(texto)}</div>'
+
+
+def info_banner(texto: str) -> str:
+    """Igual que demo_banner pero en estilo neutral/informativo (azul, sin ⚠️) --
+    para cuando el mensaje confirma que el dato ES real, no para advertir de algo.
+    Nunca usar el ⚠️ de demo_banner para comunicar buenas noticias."""
+    return f'<div class="cp-info-banner">ℹ️ {html.escape(texto)}</div>'
