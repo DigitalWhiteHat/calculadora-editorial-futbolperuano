@@ -338,6 +338,179 @@ def _eeat_checklist(fila):
         )
 
 
+NOMBRE_COMPONENTE = {
+    "eficiencia": "Eficiencia (tráfico ajustado)",
+    "ctr": "CTR de titulares (real vs. esperado por posición)",
+    "posicion": "Posición promedio en Google",
+    "seo": "Cumplimiento del checklist SEO on-page",
+}
+def _valor_real_eficiencia(f):
+    """Texto largo a propósito -- pedido de Edwin (25-ago-2026): mostrar la sección,
+    su dificultad y el ajuste explícito, no solo el índice ya calculado, para que
+    quede claro CÓMO la dificultad le sube o le baja puntos, no solo el resultado."""
+    if pd.isna(f["eficiencia_normalizada"]):
+        return "s/d"
+    seccion_label = dr.LABELS_SECCION.get(f["seccion_raw"], f["seccion_raw"])
+    veces_mediana = f["eficiencia_normalizada"] / 100
+    return (
+        f"{calc.formatear_numero(f['clics'])} clics reales en **{seccion_label}** "
+        f"({f['dificultad_categoria']}, ×{f['dificultad_ajuste']:.1f}) → "
+        f"{calc.formatear_numero(f['trafico_ajustado'])} ajustado → índice {f['eficiencia_normalizada']:.0f} "
+        f"({veces_mediana:.1f}x la mediana del equipo)"
+    )
+
+
+VALOR_REAL_COMPONENTE = {
+    "eficiencia": _valor_real_eficiencia,
+    "ctr": lambda f: _fmt(f["ctr_indice"], "{:.2f}x (1.00x = promedio del equipo)"),
+    "posicion": lambda f: _fmt(f["posicion_promedio"], "{:.1f} (posición real en Google)"),
+    "seo": lambda f: _fmt(f["pct_cumplimiento_prom"], "{:.0f}% del checklist SEO"),
+}
+
+ICONO_COMPONENTE = {"eficiencia": "📈", "ctr": "🎯", "posicion": "🔍", "seo": "✅"}
+# Orden FIJO siempre igual (no por valor) -- a propósito, para que de un mes a otro
+# el mismo componente quede siempre en la misma fila y se pueda comparar de un
+# vistazo sin tener que releer las etiquetas cada vez.
+ORDEN_COMPONENTES = ["eficiencia", "ctr", "posicion", "seo"]
+
+
+def _puntaje_rendimiento(fila):
+    """Puntaje 0-10 para decidir incentivo mensual -- pedido de la reunión
+    "Seguimiento SEO" (24-ago-2026). A propósito NO compara contra otros
+    periodistas en esta tarjeta (pedido explícito de Karen en la reunión: "no nos
+    gusta que se le esté poniendo al periodista a compararse con él") -- solo
+    muestra el número propio y CÓMO se calculó, con datos reales. La comparación
+    entre periodistas sigue existiendo como herramienta interna del equipo (ver
+    la tabla principal del Dashboard), no en el perfil individual.
+
+    Rediseño 25-ago-2026: Edwin vio la primera versión (lista de texto plano) y
+    dijo explícito "no siento que sea fácil de entender por qué sacó ese puntaje"
+    -- se reemplaza el bloque de texto por un gráfico de barras (mismo lenguaje
+    visual que "¿En qué está fallando el SEO?" más abajo, ya validado en la app)
+    + una línea de fórmula con la aritmética real, para que el "por qué" se lea
+    de un vistazo, no se deduzca leyendo cuatro líneas de texto."""
+    detalle = fila["puntaje_rendimiento_detalle"]
+    with st.container(border=True, key="card_puntaje_rendimiento"):
+        st.subheader("🎯 Puntaje de rendimiento del periodo")
+        st.caption(
+            "Combina, con datos reales de este periodo, qué tan bien le fue considerando la dificultad de "
+            "su sección (no todos parten con la misma facilidad para generar tráfico) — pensado para decidir "
+            "el incentivo mensual, no para compararse contra el resto del equipo."
+        )
+        if fila["puntaje_rendimiento"] is None:
+            st.caption("s/d — sin suficientes componentes con dato real todavía este periodo.")
+            return
+
+        puntaje = fila["puntaje_rendimiento"]
+        color = "#16A34A" if puntaje >= 7 else "#F59E0B" if puntaje >= 4 else "#DC2626"
+        bg = "#DCFCE7" if puntaje >= 7 else "#FEF3C7" if puntaje >= 4 else "#FEE2E2"
+        st.markdown(
+            f'<div class="cp-card-title">Puntaje (0-10)</div>'
+            f'<div style="display:inline-block;background:{bg};color:{color};border-radius:14px;'
+            f'padding:6px 22px;font-size:2.6rem;font-weight:800;margin-top:4px">{puntaje:.1f}</div>',
+            unsafe_allow_html=True,
+        )
+        st.write("")
+
+        pesos = detalle["pesos"]
+        componentes = detalle["componentes"]
+        claves = [k for k in ORDEN_COMPONENTES if componentes.get(k) is not None]
+        if claves:
+            subs = [componentes[k] for k in claves]
+            # La dificultad de sección NO es una barra aparte -- ya está metida adentro
+            # de "Eficiencia" (el multiplicador ×0.8/1.0/1.3 se aplica ANTES de calcular
+            # el índice). Ponerla como quinta barra con su propio peso la contaría DOS
+            # VECES y dejaría de ser justo. En vez de eso, se muestra el badge real de
+            # dificultad directo en la etiqueta de Eficiencia -- pedido de Edwin,
+            # 25-ago-2026: "que también sea gráfico que consigue buen punto por la
+            # dificultad de la sección en la que escribe".
+            ICONO_DIFICULTAD = {"Fácil": "🟢", "Media": "🔵", "Difícil": "🔴"}
+            badge_dificultad = (
+                f" · {ICONO_DIFICULTAD.get(fila['dificultad_categoria'], '⚪')} {fila['dificultad_categoria']} "
+                f"×{fila['dificultad_ajuste']:.1f}"
+                if pd.notna(fila.get("dificultad_categoria")) else ""
+            )
+            labels = [
+                f"{ICONO_COMPONENTE[k]} {NOMBRE_COMPONENTE[k]} (peso {pesos[k]})"
+                + (badge_dificultad if k == "eficiencia" else "")
+                for k in claves
+            ]
+            colores = ["#DC2626" if s < 4 else "#F59E0B" if s < 7 else "#16A34A" for s in subs]
+            textos = [f"{s:.1f}/10" for s in subs]
+            fig = go.Figure(go.Bar(
+                x=subs, y=labels, orientation="h", marker_color=colores, text=textos,
+                textposition="outside", textfont=dict(size=16, color="#0F172A"),
+                hovertemplate="%{y}<br>%{x:.1f}/10<extra></extra>",
+            ))
+            fig.update_layout(
+                height=max(180, 68 * len(claves)), margin=dict(l=0, r=55, t=6, b=6),
+                xaxis=dict(title=None, range=[0, 11.8], showgrid=True, gridcolor="#E2E6ED",
+                           tickfont=dict(size=13)),
+                yaxis=dict(title=None, automargin=True, autorange="reversed", tickfont=dict(size=14)),
+                showlegend=False, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
+                font=dict(size=14),
+            )
+            st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
+            st.caption(
+                "La dificultad de su sección no es una barra aparte: ya está adentro de \"Eficiencia\" "
+                "(el ×0.8/×1.0/×1.3 se aplica antes de calcular ese número) — separarla la contaría dos veces."
+            )
+
+            # Fórmula real, con la aritmética a la vista -- Edwin, 25-ago-2026: el
+            # st.caption (gris, chico) se leía mal -- se reemplaza por un bloque HTML
+            # propio, tamaño de cuerpo normal, con cada término separado visualmente
+            # en vez de una sola línea densa de texto.
+            peso_usado = sum(pesos[k] for k in claves)
+            terminos_html = " + ".join(
+                f'<span style="white-space:nowrap"><b>{componentes[k]:.1f}</b>×{pesos[k]}</span>' for k in claves
+            )
+            st.markdown(
+                f'<div style="background:#F8FAFC;border-radius:10px;padding:12px 16px;'
+                f'font-size:1.05rem;line-height:1.8;margin-top:4px">'
+                f'<b>Cómo se sumó:</b><br>({terminos_html}) ÷ {peso_usado} = '
+                f'<span style="font-size:1.3rem;font-weight:800;color:{color}">{puntaje:.1f}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+
+        st.write("")
+        st.markdown("**El dato real detrás de cada barra:**")
+        for clave in claves:
+            st.caption(f"{ICONO_COMPONENTE[clave]} **{NOMBRE_COMPONENTE[clave]}** — {VALOR_REAL_COMPONENTE[clave](fila)}")
+        faltantes = [k for k in ORDEN_COMPONENTES if componentes.get(k) is None]
+        if faltantes:
+            st.caption(f"s/d este periodo (no cuenta en el cálculo): {', '.join(NOMBRE_COMPONENTE[k] for k in faltantes)}")
+
+        if pd.notna(fila.get("nota_servicio")):
+            st.info(f"📋 Nota de servicio (no entra en el cálculo automático): {fila['nota_servicio']}")
+
+        with st.expander("📖 ¿Cómo se calcula exactamente? (tabla de referencia)"):
+            st.markdown(
+                "**Paso 1 — el tráfico se ajusta por qué tan difícil es su sección** "
+                "(según el tráfico mensual real de esa sección, no una opinión):\n\n"
+                "| Dificultad | Tráfico mensual de la sección | Ajuste |\n"
+                "|---|---|---|\n"
+                "| 🟢 Fácil | más de 500K | ×0.8 (se exige más, porque generar tráfico ahí es más fácil) |\n"
+                "| 🔵 Media | entre 20K y 500K | ×1.0 (sin ajuste) |\n"
+                "| 🔴 Difícil | menos de 20K | ×1.3 (se premia, porque generar tráfico ahí cuesta más) |\n\n"
+                "**Paso 2 — cada señal se pasa a una escala de 0 a 10** (nunca se usa el número "
+                "crudo directo, para que un mes excepcional de una persona no aplaste la escala "
+                "de todo el equipo):\n\n"
+                "| Componente | 0/10 | 5/10 (punto neutral) | 10/10 |\n"
+                "|---|---|---|---|\n"
+                "| Eficiencia | tráfico ajustado ≈0 | igual a la mediana del equipo (índice 100) | ~4.6x la mediana o más |\n"
+                "| CTR de titulares | 1.5x por debajo de lo esperado | exactamente lo esperado por su posición | 1.0x por encima de lo esperado |\n"
+                "| Posición en Google | posición 20 o peor | — | posición 1 |\n"
+                "| Checklist SEO | 0% de cumplimiento | 50% | 100% de cumplimiento |\n\n"
+                "**Paso 3 — se combinan con su peso** (peso más alto = pesa más en el total):\n\n"
+                + "\n".join(f"- **{NOMBRE_COMPONENTE[k]}**: peso {v} de {sum(pesos.values())}"
+                             for k, v in pesos.items()) +
+                "\n\nNi el número de notas ni las tareas de servicio (ej. mantener tablas de posiciones) "
+                "entran en esta fórmula — a propósito, no todos producen la misma cantidad de contenido "
+                "firmable."
+            )
+
+
 def _cumplimiento_seo(fila):
     with st.container(border=True, key="card_seo"):
         st.caption("Cumplimiento SEO promedio (13 ítems automatizados)")
@@ -448,20 +621,59 @@ def _rendimiento_por_seccion(meta):
             st.write("")
 
 
+def _entidades_y_temas(meta):
+    autor = meta["nombre"]
+    entidades = dr.entidades_periodista(autor)
+    recomendados = dr.temas_recomendados(autor)
+    with st.container(border=True, key="card_entidades_temas"):
+        st.subheader("Temas y entidades en los que le rinde")
+        st.caption(
+            "Extraído en automático del título real de cada nota (8 meses ene-ago 2026) — 🏷️ entidad "
+            "(persona/equipo/torneo/lugar identificable) · 📌 tema (frase recurrente, no una entidad "
+            "única). Vigencia (¿sigue generando tráfico HOY o ya se enfrió?) todavía no disponible: "
+            "necesita una serie diaria real de Search Console que el exportador automático recién "
+            "empezó a acumular el 22-ago-2026 — se activa sola en cuanto haya suficiente historia."
+        )
+        if entidades.empty:
+            st.caption("Sin entidades/temas detectados para este periodista todavía.")
+        else:
+            top = entidades.sort_values("trafico", ascending=False).head(10)
+            icono_tipo = {"entidad": "🏷️", "tema": "📌"}
+            icono_conf = {"alta": "🟢", "media": "🟡", "baja": "⚪"}
+            filas_html = []
+            for r in top.itertuples():
+                filas_html.append(
+                    f'<div style="display:flex;justify-content:space-between;align-items:center;'
+                    f'padding:6px 4px;border-bottom:1px solid #E2E6ED">'
+                    f'<div>{icono_tipo.get(r.tipo,"•")} <b>{r.entidad}</b> '
+                    f'<span style="color:#94A3B8;font-size:0.85rem">{icono_conf.get(r.confianza,"⚪")}</span></div>'
+                    f'<div style="text-align:right;color:#64748B;font-size:0.9rem">'
+                    f'{int(r.notas)} notas · {calc.formatear_numero(r.trafico)} tráfico</div></div>'
+                )
+            st.markdown("".join(filas_html), unsafe_allow_html=True)
+
+        st.write("")
+        st.markdown("**🎯 Temas recomendados** — patrón real de volver sobre el tema en ≥3 meses distintos, "
+                    "con demanda todavía cerca de su pico histórico (no una coyuntura ya cerrada)")
+        if recomendados.empty:
+            st.caption("Ningún tema de este periodista cumple todavía el patrón de recurrencia real "
+                       "(≥3 meses activos + demanda reciente ≥10% del pico).")
+        else:
+            for r in recomendados.head(6).itertuples():
+                icono = "🏷️" if r.tipo == "entidad" else "📌"
+                st.markdown(f"{icono} **{r.entidad}** — {int(r.meses_activos)} meses activos, "
+                            f"demanda reciente {r.demanda_reciente_ratio:.0%} de su pico")
+
+
 def _pipeline_pendiente():
     with st.container(border=True, key="card_pipeline_pendiente"):
-        st.subheader("Pendiente — falta construir el pipeline de análisis de texto")
+        st.subheader("Pendiente — todavía no construido")
         st.caption(
-            "El dato base (roster, tráfico, Search Console) ya tiene 8 meses reales de censo completo "
-            "(ene-ago 2026) — más historial no destraba esto. Lo que falta es un pipeline de minería de "
-            "títulos/entidades sobre ese historial, que todavía no está construido. No se fabrica un "
-            "resultado sin esa base:"
+            "El dato base (roster, tráfico, Search Console, entidades/temas) ya tiene 8 meses reales de "
+            "censo completo (ene-ago 2026). Lo que sigue pendiente necesita un análisis distinto, no más "
+            "historial:"
         )
         st.markdown(
-            "- **Temas y entidades en los que le rinde/no le rinde** — necesita detección de entidades/temas "
-            "recurrentes en títulos reales (pipeline de minería de texto, no construido todavía).\n"
-            "- **Temas recomendados** — necesita ese mismo pipeline de patrón por entidad, sobre los 8 meses "
-            "reales ya disponibles.\n"
             "- **Qué ecuación de titular le rinde** — necesita comparar tráfico \"con vs. sin\" cada rasgo "
             "estructural del titular, con muestra mínima de 10 notas por rasgo.\n"
             "- **Canibalización interna** — necesita detección de títulos muy similares entre notas propias."
@@ -529,6 +741,9 @@ def render(tabla, df_notas, slug: str, periodo=None):
         _dificultad_header(fila, periodo)
     st.write("")
 
+    _puntaje_rendimiento(fila)
+    st.write("")
+
     _trafico_historico(historial, fila["periodista"], meta, periodistas_meta)
     st.write("")
 
@@ -556,6 +771,9 @@ def render(tabla, df_notas, slug: str, periodo=None):
 
     st.write("")
     _rendimiento_por_seccion(meta)
+
+    st.write("")
+    _entidades_y_temas(meta)
 
     st.write("")
     _pipeline_pendiente()

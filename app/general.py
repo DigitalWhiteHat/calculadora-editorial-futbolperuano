@@ -201,12 +201,16 @@ def _tabla_principal(tabla):
     vista = tabla.copy().sort_values("clics", ascending=False).reset_index(drop=True)
     vista["foto"] = [avatar_data_uri(n, "#1A1A1A", 64) for n in vista["periodista"]]
     vista["seccion_beat"] = vista["seccion"].map(dr.LABELS_SECCION) + " · " + vista["beat"]
+    # Pedido de Edwin (25-ago-2026): que se vea explícito en qué sección escribe y su
+    # dificultad, conectado a que eso le sube/baja puntos -- ícono + ajuste real,
+    # no solo el nombre de la sección.
+    ICONO_DIFICULTAD = {"Fácil": "🟢", "Media": "🔵", "Difícil": "🔴"}
+    vista["dificultad_txt"] = vista.apply(
+        lambda r: f"{ICONO_DIFICULTAD.get(r['dificultad_categoria'], '⚪')} {r['dificultad_categoria']} "
+                  f"(×{r['dificultad_ajuste']:.1f})", axis=1)
     vista["eficiencia_delta"] = vista.apply(
         lambda r: calc.formatear_delta_pct(r["eficiencia_normalizada"], r["eficiencia_normalizada_anterior"]) or "—",
         axis=1)
-    vista["notas_dificultad"] = vista.apply(
-        lambda r: "s/d" if pd.isna(r.notas_facil) else
-        f"{int(r.notas_facil)}F · {int(r.notas_media)}M · {int(r.notas_dificil)}D", axis=1)
     vista["engagement"] = vista["tiempo_pagina_seg"].apply(calc.formatear_tiempo)
     vista["semaforo"] = vista["pct_cumplimiento_prom"].apply(
         lambda v: "⚪ s/e" if pd.isna(v) else f"{'🟢' if v >= 80 else '🟡' if v >= 60 else '🔴'} {v:.0f}%")
@@ -216,9 +220,9 @@ def _tabla_principal(tabla):
     vista["posicion_txt"] = vista["posicion_promedio"].apply(lambda v: "s/d" if pd.isna(v) else f"{v:.1f}")
     vista["ctr_indice_txt"] = vista["ctr_indice"].apply(lambda v: "s/d" if pd.isna(v) else f"{v:.2f}")
 
-    columnas = ["foto", "periodista", "seccion_beat", "notas", "eficiencia_normalizada", "eficiencia_delta",
-                "trafico_txt", "pct_trafico_txt", "canal_dominante", "posicion_txt", "ctr_indice_txt",
-                "notas_dificultad", "engagement", "semaforo", "flags_ia", "estado_txt"]
+    columnas = ["foto", "periodista", "seccion_beat", "dificultad_txt", "notas", "eficiencia_normalizada",
+                "eficiencia_delta", "puntaje_rendimiento", "trafico_txt", "pct_trafico_txt", "canal_dominante",
+                "posicion_txt", "ctr_indice_txt", "engagement", "semaforo", "flags_ia", "estado_txt"]
     styled = vista[columnas].style.map(lambda v: ESTADO_STYLE.get(v, ""), subset=["estado_txt"])
     event = st.dataframe(
         styled, hide_index=True, width="stretch", on_select="rerun",
@@ -227,12 +231,22 @@ def _tabla_principal(tabla):
             "foto": st.column_config.ImageColumn("", width="small"),
             "periodista": st.column_config.TextColumn("Periodista", width="medium"),
             "seccion_beat": st.column_config.TextColumn("Sección / Beat", width="medium"),
+            "dificultad_txt": st.column_config.TextColumn(
+                "Dificultad de su sección", width="small",
+                help="🟢 Fácil (×0.8) · 🔵 Media (×1.0) · 🔴 Difícil (×1.3) -- según el tráfico mensual real "
+                "de la sección. El ajuste ya está aplicado en la columna Eficiencia y en el Puntaje: escribir "
+                "en una sección difícil suma puntos, no los resta."),
             "notas": st.column_config.NumberColumn("Notas", width="small",
                                                      help="Número de notas publicadas en el periodo (dato bruto)"),
             "eficiencia_normalizada": st.column_config.NumberColumn(
                 "Eficiencia", format="%.0f", width="small",
                 help="Índice comparativo (100 = mediana del equipo), no un conteo de notas ni un porcentaje"),
             "eficiencia_delta": st.column_config.TextColumn("Δ vs. periodo ant.", width="small"),
+            "puntaje_rendimiento": st.column_config.NumberColumn(
+                "Puntaje (0-10)", format="%.1f", width="small",
+                help="Herramienta interna del equipo, para decidir el incentivo mensual -- NO se muestra en "
+                "el perfil de cada periodista comparado contra otros (pedido de Karen, reunión 24-ago-2026). "
+                "Combina eficiencia ajustada por dificultad + CTR índice + posición SERP + cumplimiento SEO."),
             "trafico_txt": st.column_config.TextColumn("Tráfico", width="small"),
             "pct_trafico_txt": st.column_config.TextColumn("% del medio", width="small"),
             "canal_dominante": st.column_config.TextColumn("Canal", width="small"),
@@ -242,8 +256,6 @@ def _tabla_principal(tabla):
             "ctr_indice_txt": st.column_config.TextColumn("CTR índice", width="small",
                                                             help="CTR real vs. el esperado para su posición (Search Console). "
                                                             "1.00 = promedio del equipo; por debajo, su CTR rinde menos de lo que la posición predeciría"),
-            "notas_dificultad": st.column_config.TextColumn("Notas por dificultad", width="small",
-                                                              help="Fácil / Media / Difícil, según el tráfico mensual de la sección"),
             "engagement": st.column_config.TextColumn("Engagement", width="small"),
             "semaforo": st.column_config.TextColumn("Semáforo SEO", width="small"),
             "flags_ia": st.column_config.NumberColumn("Flags IA", width="small"),

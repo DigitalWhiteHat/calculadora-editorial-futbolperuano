@@ -114,6 +114,18 @@ MES_LARGO = {
 # Secciones reales (confirmadas en el sitemap real de www.futbolperuano.com,
 # 22-ago-2026 -- más ricas que el nav visible del sitio).
 # ---------------------------------------------------------------------------
+# Tareas de "servicio" reales pero no firmables (ej. mantener tablas de
+# posiciones, horarios de TV) -- Karen/Edwin, reunión 24-ago-2026: "cómo medir la
+# firma... como la tabla de posiciones no se firma, no tendría cómo medirlo". El
+# sistema no puede detectar esto solo (no hay autoría en esas páginas), así que
+# queda como nota MANUAL explícita por autor, mostrada aparte del puntaje
+# automático -- nunca mezclada en la fórmula ni usada para inflar/bajar el
+# número. Llenar a mano cuando se confirme con el equipo editorial quién tiene
+# estas tareas y qué % de su tiempo representan.
+SERVICIO_NO_FIRMABLE: dict[str, str] = {
+    # "Nombre Autor": "Mantiene tablas de posiciones de Liga 1 y Liga 2 -- no se refleja en notas firmadas.",
+}
+
 LABELS_SECCION = {
     "liga-1": "Liga 1", "liga-2": "Liga 2", "liga-3": "Liga 3",
     "copa-de-la-liga": "Copa de la Liga", "copa-peru": "Copa Perú",
@@ -275,6 +287,17 @@ def cargar_periodistas(periodo: str | None = None) -> pd.DataFrame:
     df = pd.DataFrame(filas)
     mediana = df["trafico_ajustado"].median()
     df["eficiencia_normalizada"] = 100 * df["trafico_ajustado"] / mediana
+
+    # Puntaje de rendimiento (0-10, para incentivo mensual) -- pedido de la reunión
+    # "Seguimiento SEO" 24-ago-2026, ver calculos.puntaje_rendimiento() para la
+    # metodología completa. Se calcula DESPUÉS de tener eficiencia_normalizada
+    # (depende de ella). "servicio" (tareas no firmables, ej. mantener tablas de
+    # posiciones) queda como nota manual aparte -- ver SERVICIO_NO_FIRMABLE abajo,
+    # NO se mezcla en la fórmula automática (Karen: no hay forma real de medirlo).
+    resultado_rendimiento = df.apply(calc.puntaje_rendimiento, axis=1)
+    df["puntaje_rendimiento"] = resultado_rendimiento.apply(lambda r: r["puntaje"])
+    df["puntaje_rendimiento_detalle"] = resultado_rendimiento
+    df["nota_servicio"] = df["autor"].map(SERVICIO_NO_FIRMABLE)
 
     periodo_anterior = PERIODO_ANTERIOR.get(periodo)
     if periodo_anterior:
@@ -678,6 +701,38 @@ def trafico_real_por_mes() -> pd.DataFrame:
     datos = _cargar_json("trafico_portal_por_mes_2026.json")
     df = pd.DataFrame([{"mes": mes, "trafico": v} for mes, v in datos.items()])
     return df.sort_values("mes").reset_index(drop=True)
+
+
+# --- Entidades/temas reales (espejo del pipeline de colombia.com, 31-ago-2026) --
+
+def entidades_periodista(autor: str) -> pd.DataFrame:
+    """Entidades/temas reales en los que le rinde a este periodista (8 meses
+    ene-ago 2026). Vigencia real (ACTIVA/CONCLUIDA) no disponible todavía --
+    ver estado_vigencia == "SIN_DATOS_60D" y motivo_vigencia en cada fila."""
+    df = pd.read_csv(_DATA_DIR / "entidades_periodista.csv")
+    return df[df["autor"] == autor].reset_index(drop=True)
+
+
+def temas_recomendados(autor: str) -> pd.DataFrame:
+    """Temas recomendados reales (es_recurrente=True) para este periodista --
+    misma regla que colombia.com: >=3 meses activos, span >=3 meses, demanda
+    reciente >=10% del pico histórico."""
+    df = pd.read_csv(_DATA_DIR / "temas_recomendados.csv")
+    df = df[(df["autor"] == autor) & (df["es_recurrente"])]
+    return df.sort_values("meses_activos", ascending=False).reset_index(drop=True)
+
+
+def entidades_declive_portal(minimo_pct_caida: float = -15.0) -> pd.DataFrame:
+    """Entidades/temas de TODO el portal que vienen cayendo julio->agosto real
+    (ritmo mensual, ver data/calcular_declive_entidades.py)."""
+    df = pd.read_csv(_DATA_DIR / "entidades_declive_portal.csv")
+    return df[df["pct_cambio"] <= minimo_pct_caida].sort_values("pct_cambio").reset_index(drop=True)
+
+
+def entidades_prioritarias_portal() -> pd.DataFrame:
+    """Top entidades/temas recurrentes de TODO el portal, dedupeadas -- insumo
+    real para "Temas del día" (ver seleccionar_entidades_prioritarias.py)."""
+    return pd.read_csv(_DATA_DIR / "entidades_prioritarias_portal.csv")
 
 
 def mes_es_parcial(mes: str) -> bool:
