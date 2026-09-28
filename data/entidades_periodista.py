@@ -40,7 +40,7 @@ import csv
 import json
 import re
 import unicodedata
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -51,7 +51,7 @@ DIR = Path(__file__).parent
 MESES = [
     ("2026_01", "enero"), ("2026_02", "febrero"), ("2026_03", "marzo"),
     ("2026_04", "abril"), ("2026_05", "mayo"), ("2026_06", "junio"),
-    ("2026_07", "julio"), ("2026_08", "agosto"),
+    ("2026_07", "julio"), ("2026_08", "agosto"), ("2026_09", "septiembre"),
 ]
 
 # --- Extracción de entidades desde el título (idéntico a colombia.com) -----
@@ -274,13 +274,17 @@ def _leer_csv_sin_comentarios(path):
 
 
 def _cargar_ga4_vistas(sufijo_mes: str) -> dict:
-    ga4 = {}
+    """pagePath -> vistas, SUMADAS (no sobrescritas) entre filas -- los CSV de
+    meses armados concatenando tramos de fecha (ej. septiembre 2026, tope de
+    exportación de GA4) traen la misma ruta más de una vez, cada fila con la
+    suma parcial de su ventana."""
+    ga4 = defaultdict(float)
     for row in _leer_csv_sin_comentarios(DIR / f"ga4_paginas_{sufijo_mes}_2026.csv"):
         try:
-            ga4[row["Ruta de página y clase de pantalla"]] = float(row["Vistas"])
+            ga4[row["Ruta de página y clase de pantalla"]] += float(row["Vistas"])
         except (ValueError, KeyError):
             continue
-    return ga4
+    return dict(ga4)
 
 
 def _cargar_notas() -> pd.DataFrame:

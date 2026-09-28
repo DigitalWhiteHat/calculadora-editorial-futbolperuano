@@ -1,7 +1,7 @@
 """Vista Secciones — panorama 360 de todo el portal: dónde está el tráfico, no
 solo las secciones con periodista identificado. Espejo de
-calculadora-periodistas/app/secciones.py (colombia.com), con ene-ago 2026
-(8 meses reales, misma profundidad que el original) -- las herramientas de
+calculadora-periodistas/app/secciones.py (colombia.com), con ene-sep 2026
+(9 meses reales, misma profundidad que el original) -- las herramientas de
 decisión (simulador, especialización, redistribución) usan TODO el censo
 completo disponible, igual principio que el original (no una foto de un solo mes)."""
 
@@ -73,7 +73,7 @@ def _tabla(df):
             "trafico_txt": st.column_config.TextColumn("Tráfico", width="small"),
             "pct_del_portal": st.column_config.NumberColumn("% del portal", format="%.1f%%", width="small"),
             "cobertura": st.column_config.TextColumn("Cobertura editorial", width="small"),
-            "notas_txt": st.column_config.TextColumn("Notas identificadas (ene-ago)", width="small"),
+            "notas_txt": st.column_config.TextColumn("Notas identificadas (ene-sep)", width="small"),
         },
     )
 
@@ -82,7 +82,7 @@ def _eficiencia_por_seccion(df_notas):
     st.subheader("Cuántas notas produce cada sección — y qué tan bien le rinden")
     st.caption(
         "Esto NO depende de quién firmó la nota — cuenta todo artículo real con autor identificado, "
-        "acumulado en ene-ago 2026 (8 meses reales de censo completo)."
+        "acumulado en ene-sep 2026 (9 meses reales de censo completo)."
     )
     vista = df_notas.copy().sort_values("trafico_por_nota", ascending=False)
     vista["trafico_txt"] = vista["trafico"].apply(calc.formatear_numero)
@@ -102,7 +102,7 @@ def _eficiencia_por_seccion(df_notas):
         vista[["label", "notas", "trafico_txt"]], hide_index=True, width="stretch",
         column_config={
             "label": st.column_config.TextColumn("Sección", width="medium"),
-            "notas": st.column_config.NumberColumn("Notas publicadas (ene-ago)", width="small"),
+            "notas": st.column_config.NumberColumn("Notas publicadas (ene-sep)", width="small"),
             "trafico_txt": st.column_config.TextColumn("Tráfico total", width="small"),
         },
     )
@@ -111,7 +111,7 @@ def _eficiencia_por_seccion(df_notas):
 def _simulador(df_notas):
     st.subheader("Simulador: ¿cuántas notas necesita cada sección?")
     st.caption(
-        "Elige una sección y escribe la meta mensual de tráfico. Con la eficiencia real de ene-ago 2026 "
+        "Elige una sección y escribe la meta mensual de tráfico. Con la eficiencia real de ene-sep 2026 "
         "calcula cuántas notas al mes — y al día — hacen falta para llegar."
     )
     n_meses = len(dr.PERIODOS_DISPONIBLES)
@@ -174,14 +174,14 @@ def _simulador(df_notas):
 def _especializacion_periodistas(esp):
     st.subheader("Especialización real: dónde le rinde a cada periodista escribir")
     st.caption(
-        "Cruce periodista × sección con ene-ago 2026 (8 meses reales de censo completo). Confianza: "
+        "Cruce periodista × sección con ene-sep 2026 (9 meses reales de censo completo). Confianza: "
         "🟢 alta (≥10 notas) · 🟡 media (3-9) · ⚪ baja (<3, indicativo)."
     )
     icono_conf = {"alta": "🟢", "media": "🟡", "baja": "⚪"}
     for autor in sorted(esp["autor"].unique()):
         sub = esp[esp["autor"] == autor].sort_values("trafico_por_nota", ascending=False)
         mejor, peor = sub.iloc[0], sub.iloc[-1]
-        with st.expander(f"{autor} — {len(sub)} sección(es) trabajada(s) en ene-ago"):
+        with st.expander(f"{autor} — {len(sub)} sección(es) trabajada(s) en ene-sep"):
             vista = sub.copy()
             vista["label"] = vista["seccion"].map(lambda s: LABELS_SECCION.get(s, s.title()))
             vista["icono"] = vista["confianza"].map(icono_conf)
@@ -189,7 +189,7 @@ def _especializacion_periodistas(esp):
                 vista[["label", "notas", "trafico_por_nota", "icono"]], hide_index=True, width="stretch",
                 column_config={
                     "label": st.column_config.TextColumn("Sección", width="small"),
-                    "notas": st.column_config.NumberColumn("Notas (ene-ago)", width="small"),
+                    "notas": st.column_config.NumberColumn("Notas (ene-sep)", width="small"),
                     "trafico_por_nota": st.column_config.NumberColumn("Tráfico/nota", format="%.0f", width="small"),
                     "icono": st.column_config.TextColumn("Confianza", width="small"),
                 },
@@ -205,7 +205,7 @@ def _simulador_escenarios(esp, df_notas_seccion, tabla_periodistas):
     st.subheader("Simulador: ¿qué pasa si muevo a un periodista de sección?")
     st.caption(
         "Elige un periodista y una sección destino. Si ya escribió ahí, usa su propio rendimiento real "
-        "(ene-ago); si no, la mediana real de quienes sí escriben esa sección; si nadie lo ha intentado, "
+        "(ene-sep); si no, la mediana real de quienes sí escriben esa sección; si nadie lo ha intentado, "
         "un estimado conservador. La pérdida se ve de inmediato; la ganancia tarda en madurar."
     )
     periodistas = sorted(esp["autor"].unique())
@@ -233,7 +233,7 @@ def _simulador_escenarios(esp, df_notas_seccion, tabla_periodistas):
                 "🔢 Notas/mes a mover", min_value=1, max_value=max(200, notas_mes_promedio * 3),
                 value=notas_mes_promedio, key="sim_notas",
                 help=f"Promedio real de {periodista_sel} en esta sección: {int(fila_origen['notas'])} notas en "
-                     f"ene-ago (~{notas_mes_promedio}/mes).",
+                     f"ene-sep (~{notas_mes_promedio}/mes).",
             )
     eficiencia_origen = float(fila_origen["trafico_por_nota"])
     trafico_perdido = notas_a_mover * eficiencia_origen

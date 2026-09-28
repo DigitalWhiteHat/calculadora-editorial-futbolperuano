@@ -63,7 +63,7 @@ with st.sidebar:
                   type="primary" if es_actual else "secondary",
                   on_click=lambda v=vista_key: st.session_state.update(vista=v))
     st.write("")
-    st.caption("v0.5 · espejo completo, datos reales (ene-ago 2026, 8 meses de censo completo)")
+    st.caption("v0.5 · espejo completo, datos reales (ene-sep 2026, 9 meses de censo completo)")
 
 st.markdown(
     f'<div class="cp-topbar"><div class="cp-brand">'

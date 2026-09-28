@@ -11,10 +11,10 @@ colombia.com):
 
 Adaptación real frente a colombia.com (documentada): allá solo ene-jun eran
 "comparables" (jul/ago venían de un pull de GSC con metodología distinta).
-Acá los 8 meses reales de futbolperuano (gsc_paginas_<mes>_2026.csv) vienen
-TODOS del mismo export manual de la UI de Search Console (mismo tope real de
-1.000 filas cada uno) -- se usan los 8, no solo 6, porque de verdad son
-comparables entre sí.
+Acá los 9 meses reales de futbolperuano (gsc_paginas_<mes>_2026.csv, sep parcial
+1-28) vienen TODOS del mismo export manual de la UI de Search Console (mismo
+tope real de 1.000 filas cada uno) -- se usan los 9, no solo 6, porque de
+verdad son comparables entre sí.
 
 evento_concluido (aporte marginal diario) NO está disponible -- necesita
 snapshots diarios de GSC que futbolperuano no tiene todavía (ver
@@ -39,11 +39,12 @@ sys.path.insert(0, str(DIR))
 import entidades_periodista as ep  # noqa: E402
 
 MESES_IMPRESIONES_COMPARABLES = [
-    "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08",
+    "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09",
 ]
 _MES_A_SUFIJO = {
     "2026-01": "enero", "2026-02": "febrero", "2026-03": "marzo", "2026-04": "abril",
     "2026-05": "mayo", "2026-06": "junio", "2026-07": "julio", "2026-08": "agosto",
+    "2026-09": "septiembre",
 }
 
 

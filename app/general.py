@@ -296,8 +296,8 @@ def _tendencia_portal():
     rango_txt = f"{dr.MES_LARGO.get(por_mes['mes'].iloc[0], '')}-{dr.MES_LARGO.get(por_mes['mes'].iloc[-1], '')} 2026"
     st.subheader(f"Tendencia del portal — {n_meses} meses ({rango_txt})")
     st.caption(
-        "Tráfico TOTAL real reportado por GA4 cada mes (todo el portal). Enero-julio son meses "
-        "cerrados; agosto es el mes en curso (línea punteada = proyección de cierre, no dato real)."
+        "Tráfico TOTAL real reportado por GA4 cada mes (todo el portal). Enero-agosto son meses "
+        "cerrados; septiembre es el mes en curso (línea punteada = proyección de cierre, no dato real)."
     )
     por_mes["label"] = por_mes["mes"].map(lambda m: dr.MES_CORTO.get(m, m))
 
@@ -336,14 +336,14 @@ def render(tabla, periodo=None):
     periodo = periodo or dr.PERIODO_COMPLETO
     hay_anterior = tabla["eficiencia_normalizada_anterior"].notna().any() if not tabla.empty else False
     seo_real_txt = (
-        "Semáforo SEO real (agosto, censo completo de 526 notas — checklist de 13 ítems "
-        "automatizables). " if periodo == "2026-08" else ""
+        "Semáforo SEO real (septiembre, censo completo de 744 notas — checklist de 13 ítems "
+        "automatizables). " if periodo == "2026-09" else ""
     )
     banner_txt = (
-        "Datos REALES (roster + GA4 + Search Console" + (" + semáforo SEO" if periodo == "2026-08" else "")
-        + ") — julio 2026 es mes cerrado (censo completo); agosto es el mes en curso (1-22 ago, "
+        "Datos REALES (roster + GA4 + Search Console" + (" + semáforo SEO" if periodo == "2026-09" else "")
+        + ") — agosto 2026 es mes cerrado (censo completo); septiembre es el mes en curso (1-28 sep, "
         "proyectado a mes completo donde aplica). "
-        + ("Deltas vs. julio ya son reales para quien escribió en ambos meses. "
+        + ("Deltas vs. agosto ya son reales para quien escribió en ambos meses. "
            if hay_anterior else "")
         + "Posición/CTR real (Search Console) cubre el top 1.000 páginas por clics — tope de la "
         "plataforma, no elegido por nosotros. " + seo_real_txt

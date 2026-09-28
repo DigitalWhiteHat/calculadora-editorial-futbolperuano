@@ -19,14 +19,16 @@ calculadora-periodistas/app/calculos.py (colombia.com): ctr_esperado =
 Estructura de periodos, igual patrón que colombia.com (pedido de Edwin,
 22-ago-2026: "esto inicia con un histórico de enero a julio... agosto es
 importantísimo que corra con todos los datos correctos" -- y luego, mismo día,
-"hay que completar los otros meses, enero, febrero, marzo, abril, mayo y junio"):
-- **Enero-julio 2026** ("2026-01" a "2026-07"): 7 meses CERRADOS, censo completo
+"hay que completar los otros meses, enero, febrero, marzo, abril, mayo y junio").
+Actualizado 28-sep-2026 ("actualiza el informe y publica"): agosto cierra como
+mes completo y septiembre pasa a ser el mes en curso.
+- **Enero-agosto 2026** ("2026-01" a "2026-08"): 8 meses CERRADOS, censo completo
   real cada uno (roster vía sitemap+JSON-LD, tráfico+canal real vía GA4, posición/
-  CTR real vía Search Console) -- mismo rigor en los 7, no una muestra ni un mes
+  CTR real vía Search Console) -- mismo rigor en los 8, no una muestra ni un mes
   "premium" y el resto liviano.
-- **Agosto 2026** ("2026-08", mes en curso, PARCIAL -- 22 de 31 días al corte):
-  mismo rigor que los 7 anteriores (censo completo, no muestra), tráfico de
-  sección proyectado a mes completo con una regla de tres simple antes de
+- **Septiembre 2026** ("2026-09", mes en curso, PARCIAL -- 28 de 30 días al
+  corte): mismo rigor que los 8 anteriores (censo completo, no muestra), tráfico
+  de sección proyectado a mes completo con una regla de tres simple antes de
   clasificar dificultad. Es el periodo por defecto al abrir la app. Es el único
   periodo con semáforo SEO on-page real (data/scrape_semaforo.py) -- corrido una
   sola vez sobre el mes en curso, igual patrón que colombia.com.
@@ -70,22 +72,23 @@ _PERIODOS_CONFIG = {
     "2026-05": _mes_cerrado(5, 31),
     "2026-06": _mes_cerrado(6, 30),
     "2026-07": _mes_cerrado(7, 31),
-    "2026-08": {
-        "roster": "roster_2026_08_con_trafico.json",
-        "secciones": "secciones_trafico_real_2026_08.json",
-        "gsc": "gsc_por_autor_2026_08.json",
-        "seo": "seo_por_autor_2026_08.json",
-        "inicio": date(2026, 8, 1), "fin": date(2026, 8, 22),
-        "dias_transcurridos": 22, "dias_mes": 31,
+    "2026-08": _mes_cerrado(8, 31),
+    "2026-09": {
+        "roster": "roster_2026_09_con_trafico.json",
+        "secciones": "secciones_trafico_real_2026_09.json",
+        "gsc": "gsc_por_autor_2026_09.json",
+        "seo": "seo_por_autor_2026_09.json",
+        "inicio": date(2026, 9, 1), "fin": date(2026, 9, 28),
+        "dias_transcurridos": 28, "dias_mes": 30,
     },
 }
 PERIODO_ANTERIOR = {
-    "2026-08": "2026-07", "2026-07": "2026-06", "2026-06": "2026-05",
+    "2026-09": "2026-08", "2026-08": "2026-07", "2026-07": "2026-06", "2026-06": "2026-05",
     "2026-05": "2026-04", "2026-04": "2026-03", "2026-03": "2026-02",
     "2026-02": "2026-01", "2026-01": None,
 }
 
-PERIODO_COMPLETO = "2026-08"  # periodo por defecto al abrir la app (mes en curso)
+PERIODO_COMPLETO = "2026-09"  # periodo por defecto al abrir la app (mes en curso)
 PERIODO_INICIO = _PERIODOS_CONFIG[PERIODO_COMPLETO]["inicio"]
 PERIODO_FIN = _PERIODOS_CONFIG[PERIODO_COMPLETO]["fin"]
 
@@ -97,17 +100,19 @@ PERIODOS_DISPONIBLES = [
     ("2026-05", "Mayo 2026 (real, censo completo)"),
     ("2026-06", "Junio 2026 (real, censo completo)"),
     ("2026-07", "Julio 2026 (real, censo completo)"),
-    ("2026-08", "Agosto 2026 (real, 1-22 ago — mes parcial)"),
+    ("2026-08", "Agosto 2026 (real, censo completo)"),
+    ("2026-09", "Septiembre 2026 (real, 1-28 sep — mes parcial)"),
 ]
 LABEL_PERIODO = dict(PERIODOS_DISPONIBLES)
 
 MES_CORTO = {
     "2026-01": "Ene", "2026-02": "Feb", "2026-03": "Mar", "2026-04": "Abr",
-    "2026-05": "May", "2026-06": "Jun", "2026-07": "Jul", "2026-08": "Ago",
+    "2026-05": "May", "2026-06": "Jun", "2026-07": "Jul", "2026-08": "Ago", "2026-09": "Sep",
 }
 MES_LARGO = {
     "2026-01": "enero", "2026-02": "febrero", "2026-03": "marzo", "2026-04": "abril",
     "2026-05": "mayo", "2026-06": "junio", "2026-07": "julio", "2026-08": "agosto",
+    "2026-09": "septiembre",
 }
 
 # ---------------------------------------------------------------------------
@@ -395,8 +400,8 @@ def secciones_360(periodo: str | None = None) -> pd.DataFrame:
 
 
 def especializacion_todos() -> pd.DataFrame:
-    """Cruce periodista × sección con TODO el censo completo disponible (ene-ago
-    2026, 8 meses reales) -- alimenta Secciones (especialización, simulador de
+    """Cruce periodista × sección con TODO el censo completo disponible (ene-sep
+    2026, 9 meses reales) -- alimenta Secciones (especialización, simulador de
     escenarios) y Reemplazos. Mismos umbrales de confianza que colombia.com."""
     from collections import defaultdict
     agregado = defaultdict(lambda: {"notas": 0, "trafico": 0.0})
@@ -425,7 +430,7 @@ def especializacion_todos() -> pd.DataFrame:
 
 def ritmo_diario_por_seccion() -> pd.DataFrame:
     """Tráfico REAL por día (sin proyectar a mes completo) por sección, los 8
-    periodos reales disponibles (ene-ago 2026) -- para comparar el mismo tipo de
+    periodos reales disponibles (ene-sep 2026) -- para comparar el mismo tipo de
     unidad entre un mes cerrado (28-31 días reales) y uno parcial (22 días reales),
     mismo principio que colombia.com (dividir por días reales de cada fuente en
     vez de comparar totales crudos)."""
@@ -462,7 +467,7 @@ def declive_secciones_jul_ago() -> pd.DataFrame:
 
 def notas_por_seccion_independiente(periodo: str | None = None) -> pd.DataFrame:
     """Notas por sección SIN depender de si el autor quedó identificado -- combina
-    los 8 meses reales disponibles (ene-ago 2026). Espejo de secciones_7meses()
+    los 9 meses reales disponibles (ene-sep 2026). Espejo de secciones_7meses()
     de colombia.com, ahora con la misma profundidad de histórico."""
     from collections import defaultdict
     agregado = defaultdict(lambda: {"notas": 0, "trafico": 0.0})
@@ -539,7 +544,7 @@ def _semaforo_por_url(periodo: str) -> dict:
 
 
 def historial_periodista(autor: str) -> pd.DataFrame:
-    """Serie real ene-ago 2026 (hasta 8 puntos -- todo el censo completo
+    """Serie real ene-sep 2026 (hasta 8 puntos -- todo el censo completo
     disponible) para las 3 gráficas históricas del perfil. Un periodista sin
     notas ese mes simplemente no aparece en la serie (no se rellena con 0) --
     Joaquín Vásquez, por ejemplo, solo aparece desde agosto (contratación nueva)."""
@@ -597,7 +602,7 @@ def alertas_tendencia() -> list[dict]:
 
 def tendencia_periodistas() -> pd.DataFrame:
     """Tráfico real total (suma de todos los periodistas con censo completo) por
-    mes -- ene-ago 2026, los 8 periodos reales (no confundir con
+    mes -- ene-sep 2026, los 8 periodos reales (no confundir con
     trafico_real_por_mes(), que es el portal COMPLETO incluyendo páginas
     utilitarias sin autor)."""
     filas = []
@@ -624,7 +629,7 @@ def secciones_trafico_real(periodo: str | None = None) -> dict:
 
 
 def secciones_trafico_historico() -> pd.DataFrame:
-    """Tráfico real de GA4 por sección, mes a mes (ene-ago 2026, 8 meses de censo
+    """Tráfico real de GA4 por sección, mes a mes (ene-sep 2026, 9 meses de censo
     completo) -- para el gráfico "General" de Impacto algoritmo. Sin proyección
     de fin de mes en agosto (dato bruto, 1-22 ago): la vista ya marca el mes
     parcial por separado, mismo criterio que _tendencia_portal() en general.py."""
@@ -638,8 +643,8 @@ def secciones_trafico_historico() -> pd.DataFrame:
 
 
 def rendimiento_por_seccion(autor: str) -> pd.DataFrame:
-    """Tráfico/nota real por sección para ESTE periodista, combinando los 8 meses
-    reales disponibles (ene-ago 2026) -- misma profundidad que "en qué secciones
+    """Tráfico/nota real por sección para ESTE periodista, combinando los 9 meses
+    reales disponibles (ene-sep 2026) -- misma profundidad que "en qué secciones
     le rinde" de colombia.com. Confianza: alta ≥10 notas, media 3-9, baja <3
     (mismos umbrales que colombia.com)."""
     from collections import defaultdict
@@ -694,10 +699,10 @@ def secciones_dificultad_canal(periodo: str | None = None) -> pd.DataFrame:
 
 def trafico_real_por_mes() -> pd.DataFrame:
     """Tráfico TOTAL real del portal por mes (GA4, sin desglose por periodista) --
-    enero-julio 2026 con tratamiento liviano (Principio 2 del espejo: aceptable
-    para historial de meses que ya no son el foco inmediato), agosto es el mes en
-    curso y por eso viene PARCIAL (1-22 ago, no proyectado acá -- la proyección de
-    cierre la dibuja graficos.agregar_proyeccion sobre el propio gráfico)."""
+    enero-agosto 2026 con tratamiento liviano (Principio 2 del espejo: aceptable
+    para historial de meses que ya no son el foco inmediato), septiembre es el mes
+    en curso y por eso viene PARCIAL (1-28 sep, no proyectado acá -- la proyección
+    de cierre la dibuja graficos.agregar_proyeccion sobre el propio gráfico)."""
     datos = _cargar_json("trafico_portal_por_mes_2026.json")
     df = pd.DataFrame([{"mes": mes, "trafico": v} for mes, v in datos.items()])
     return df.sort_values("mes").reset_index(drop=True)
@@ -706,8 +711,8 @@ def trafico_real_por_mes() -> pd.DataFrame:
 # --- Entidades/temas reales (espejo del pipeline de colombia.com, 31-ago-2026) --
 
 def entidades_periodista(autor: str) -> pd.DataFrame:
-    """Entidades/temas reales en los que le rinde a este periodista (8 meses
-    ene-ago 2026). Vigencia real (ACTIVA/CONCLUIDA) no disponible todavía --
+    """Entidades/temas reales en los que le rinde a este periodista (9 meses
+    ene-sep 2026). Vigencia real (ACTIVA/CONCLUIDA) no disponible todavía --
     ver estado_vigencia == "SIN_DATOS_60D" y motivo_vigencia en cada fila."""
     df = pd.read_csv(_DATA_DIR / "entidades_periodista.csv")
     return df[df["autor"] == autor].reset_index(drop=True)
@@ -736,7 +741,7 @@ def entidades_prioritarias_portal() -> pd.DataFrame:
 
 
 def mes_es_parcial(mes: str) -> bool:
-    return mes == "2026-08"
+    return mes == "2026-09"
 
 
 def proyeccion_fin_de_mes(serie: pd.DataFrame, col_valor: str, col_mes: str = "mes") -> dict | None:

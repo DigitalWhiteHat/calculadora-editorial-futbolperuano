@@ -1,8 +1,8 @@
-"""Vista Impacto algoritmo — tráfico histórico real por sección (8 meses,
-ene-ago 2026, GA4) + declive real mes vs. mes anterior + updates de Google
+"""Vista Impacto algoritmo — tráfico histórico real por sección (9 meses,
+ene-sep 2026, GA4) + declive real mes vs. mes anterior + updates de Google
 conocidos. Lo que falta frente a la versión de referencia con snapshots
 DIARIOS de Search Console (que sí distingue Search/Discover/News por sección)
-es granularidad diaria: acá los 8 meses reales disponibles son a nivel
+es granularidad diaria: acá los 9 meses reales disponibles son a nivel
 MENSUAL. Ese desglose diario por tipo de búsqueda necesita un export distinto
 al que corre hoy -- el exportador automático de GSC (activo desde el
 22-ago-2026) recién empieza a acumular esa historia hacia adelante, no se
@@ -51,10 +51,10 @@ def _agregar_marcadores_updates(fig, meses):
 def _trafico_historico_secciones():
     df = dr.secciones_trafico_historico()
     with st.container(border=True, key="card_trafico_historico_secciones"):
-        st.subheader("Tráfico real por sección — enero a agosto 2026")
+        st.subheader("Tráfico real por sección — enero a septiembre 2026")
         st.caption(
-            "Tráfico real de GA4 (portal completo), mes a mes. Agosto es un mes parcial "
-            "(1-22 ago) — no está proyectado a mes completo en este gráfico, para no mezclar dato real "
+            "Tráfico real de GA4 (portal completo), mes a mes. Septiembre es un mes parcial "
+            "(1-28 sep) — no está proyectado a mes completo en este gráfico, para no mezclar dato real "
             "con proyección en la misma línea. Las líneas verticales marcan updates de Google conocidos "
             "en ese mes."
         )
@@ -112,10 +112,10 @@ def _header_algoritmo():
             st.markdown(f"Update más reciente conocido: **{u['nombre']}** ({u['tipo']}) — "
                         f"inició {u['inicio'].strftime('%d-%b-%Y')}, {cierre_txt}.")
         st.warning(
-            "⚠️ Search Console tiene un rezago real de reporte de 2-3 días, y acá los 8 meses reales "
-            "disponibles (ene-ago 2026) son a nivel MENSUAL, no snapshots diarios — no hay suficiente "
+            "⚠️ Search Console tiene un rezago real de reporte de 2-3 días, y acá los 9 meses reales "
+            "disponibles (ene-sep 2026) son a nivel MENSUAL, no snapshots diarios — no hay suficiente "
             "granularidad todavía para medir el efecto de un algoritmo específico con confianza. Lo de "
-            "abajo es una comparación real agosto vs. julio (ritmo diario, no el total crudo), útil como "
+            "abajo es una comparación real septiembre vs. agosto (ritmo diario, no el total crudo), útil como "
             "alerta temprana de qué secciones vienen cayendo — no una atribución a ningún algoritmo en particular.",
             icon="⚠️",
         )
@@ -124,9 +124,9 @@ def _header_algoritmo():
 def _ranking_declive():
     df = dr.declive_secciones_jul_ago()
     with st.container(border=True, key="card_ranking_declive"):
-        st.subheader("Qué secciones cayeron más — julio vs. agosto (ritmo diario real)")
+        st.subheader("Qué secciones cayeron más — agosto vs. septiembre (ritmo diario real)")
         st.caption(
-            "Tráfico real de GA4 dividido por días reales de cada periodo (31 en julio, 22 en agosto al "
+            "Tráfico real de GA4 dividido por días reales de cada periodo (31 en agosto, 28 en septiembre al "
             "corte) — así un mes parcial no se ve peor solo por tener menos días. 🔴 caída ≥15% · "
             "🟡 caída leve · 🟢 estable o sube."
         )
@@ -142,8 +142,8 @@ def _ranking_declive():
                 f'{dr.LABELS_SECCION.get(r.seccion, r.seccion.title())}</span></div>'
                 f'<div style="text-align:right"><span style="font-weight:700">{r.pct_cambio:+.0f}%</span> '
                 f'<span style="color:#64748B;font-size:0.85rem">'
-                f'({calc.formatear_numero(r.ritmo_dia_anterior)}/día en julio → '
-                f'{calc.formatear_numero(r.ritmo_dia_actual)}/día en agosto)</span></div></div>'
+                f'({calc.formatear_numero(r.ritmo_dia_anterior)}/día en agosto → '
+                f'{calc.formatear_numero(r.ritmo_dia_actual)}/día en septiembre)</span></div></div>'
             )
         st.markdown("".join(filas), unsafe_allow_html=True)
         peores = df.head(3)
@@ -194,28 +194,32 @@ def _analisis_algoritmo():
             "(Liga 2, Liga 3, Liga Femenina, Copa Perú, Vóley, Futsal) se generan con la misma plantilla "
             "partido tras partido, fecha tras fecha — es justo el tipo de patrón masivo/templado que "
             "describe *scaled content abuse*, aunque acá SÍ hay utilidad real y actualizada para el "
-            "usuario (no es spam disfrazado). Con los datos de hoy esas secciones vienen creciendo, no "
-            "cayendo (ver ranking arriba) — no hay señal de que estén siendo penalizadas, pero son las "
-            "que más tienen que perder si el algoritmo empieza a tratar 'plantilla repetida' como señal "
-            "de spam sin distinguir utilidad real. Vale la pena revisar que cada página de resultado "
-            "tenga contenido genuinamente distinto (crónica del partido, estadísticas, declaraciones) y "
-            "no un cascarón idéntico con solo el marcador cambiado.",
+            "usuario (no es spam disfrazado). Con los datos de hoy el grupo viene mixto (ver ranking "
+            "arriba): Futsal, Copa Perú y Liga 2 crecen, pero Liga Vóley (-35%, la mayor caída del portal "
+            "este periodo), Fútbol Femenino (-18%) y Liga 3 (-6%) caen — no hay una señal clara de "
+            "penalización pareja en el grupo, pero Liga Vóley en particular vale la pena vigilar de cerca. "
+            "Vale la pena revisar que cada página de resultado tenga contenido genuinamente distinto "
+            "(crónica del partido, estadísticas, declaraciones) y no un cascarón idéntico con solo el "
+            "marcador cambiado.",
             icon="⚠️",
         )
         st.markdown(
-            "**Lo que YA está cayendo (ver ranking arriba) probablemente NO es el algoritmo todavía:** "
-            "Mundial (-92%) y Copa de la Liga (-84%) coinciden con el fin de esos torneos — coyuntura "
-            "real de calendario deportivo, no señal de spam. Partidos por TV (-34%) sigue el mismo patrón "
-            "de menor volumen de partidos relevantes en agosto. Ninguno de los 3 grupos que apunta este "
-            "update (escala/engaño/higiene) explica bien estas caídas — razón de más para tratarlas como "
-            "coyuntura y no como efecto del algoritmo."
+            "**Lo que YA está cayendo (ver ranking arriba):** Liga Vóley (-35%), Copa Sudamericana (-19%), "
+            "Fútbol Femenino (-18%), Liga 1 (-17%) y Copa de la Liga (-15%) son las mayores caídas de "
+            "ritmo diario real de agosto a septiembre. No tenemos todavía un cruce confirmado con el "
+            "calendario deportivo real de cada torneo (fin de fase, receso, fecha FIFA) para saber cuánto "
+            "de esto es coyuntura editorial y cuánto no — antes de tratar esto como señal del algoritmo, "
+            "toca verificar caso por caso si el torneo respectivo sigue activo. Ninguno de los 3 grupos "
+            "que apunta este update (escala/engaño/higiene) describe bien estas secciones por sí solo, lo "
+            "que hace más probable coyuntura que efecto del algoritmo, pero es una lectura razonada, no "
+            "un dato confirmado."
         )
         st.markdown(
-            "**Qué vigilar cuando haya más datos post-algoritmo:** si las ligas menores empiezan a caer "
-            "(rompería su patrón de crecimiento actual), es la señal más clara de que el algoritmo sí "
-            "está afectando contenido templado real. Si en cambio siguen cayendo solo las secciones "
-            "ligadas al calendario (Mundial, torneos ya cerrados) sin que las ligas menores se muevan, "
-            "refuerza que es coyuntura y no el algoritmo."
+            "**Qué vigilar cuando haya más datos post-algoritmo:** Liga Vóley ya cayó -35% este periodo — "
+            "si el resto de ligas menores (Liga 2, Liga 3, Copa Perú, Futsal) empieza a seguirla en vez de "
+            "seguir creciendo, es la señal más clara de que el algoritmo sí está afectando contenido "
+            "templado real. Si en cambio Liga Vóley queda como caso aislado (verificable contra su "
+            "calendario real) y las demás siguen creciendo, refuerza que es coyuntura y no el algoritmo."
         )
         st.caption(
             "Fuentes: "

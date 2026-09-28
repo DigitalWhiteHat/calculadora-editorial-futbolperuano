@@ -25,17 +25,35 @@ def _leer_csv_sin_comentarios(path):
 
 
 def cargar_ga4(path) -> dict:
-    ga4 = {}
+    """pagePath -> {vistas, usuarios_activos, tiempo_interaccion_seg}. Suma
+    (no sobrescribe) cuando la misma ruta aparece en más de una fila -- pasa
+    real con los CSV armados concatenando varios tramos de fecha (necesario
+    cuando un mes completo supera el tope de exportación de GA4, ver
+    septiembre 2026): cada tramo trae su propia fila con la suma PARCIAL de
+    esa ruta en su ventana, nunca el total del mes. tiempo_interaccion_seg se
+    pondera por usuarios_activos de cada tramo (no se puede promediar un
+    promedio sin peso)."""
+    acumulado = defaultdict(lambda: {"vistas": 0.0, "usuarios_activos": 0.0, "_tiempo_num": 0.0})
     for row in _leer_csv_sin_comentarios(path):
         pagepath = row["Ruta de página y clase de pantalla"]
         try:
-            ga4[pagepath] = {
-                "vistas": float(row["Vistas"]),
-                "usuarios_activos": float(row["Usuarios activos"]),
-                "tiempo_interaccion_seg": float(row["Tiempo de interacción medio por usuario activo"]),
-            }
+            vistas = float(row["Vistas"])
+            usuarios_activos = float(row["Usuarios activos"])
+            tiempo = float(row["Tiempo de interacción medio por usuario activo"])
         except ValueError:
             continue
+        a = acumulado[pagepath]
+        a["vistas"] += vistas
+        a["usuarios_activos"] += usuarios_activos
+        a["_tiempo_num"] += tiempo * usuarios_activos
+
+    ga4 = {}
+    for pagepath, a in acumulado.items():
+        tiempo_prom = a["_tiempo_num"] / a["usuarios_activos"] if a["usuarios_activos"] else 0.0
+        ga4[pagepath] = {
+            "vistas": a["vistas"], "usuarios_activos": a["usuarios_activos"],
+            "tiempo_interaccion_seg": tiempo_prom,
+        }
     return ga4
 
 

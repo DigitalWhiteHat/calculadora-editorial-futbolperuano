@@ -6,7 +6,7 @@ ventanas de ~17 días extraídas de un export especial de GA4
 (ga4_pages_screens_periodos_*.csv, pageTitle a nivel de TODO el portal). Acá no
 existe ese export a nivel portal con título -- el insumo real más amplio con
 título es el censo de notas con autor identificado (notas_2026_MM.json, 525-838
-notas/mes). Se compara julio (mes cerrado) vs. agosto (parcial, 1-22 ago) --
+notas/mes). Se compara agosto (mes cerrado) vs. septiembre (parcial, 1-28 sep) --
 mismo principio que colombia.com (tráfico QUE OCURRIÓ en cada ventana, nunca
 acumulado-a-la-fecha por publicación), a granularidad MENSUAL en vez de ~17
 días -- una ventana más ancha, no un método distinto.
@@ -100,9 +100,9 @@ def _extraer_por_periodo(df: pd.DataFrame, propios: set[str]) -> pd.DataFrame:
 
 
 def main():
-    actual_df = _cargar_periodo("2026_08", "agosto")
-    anterior_df = _cargar_periodo("2026_07", "julio")
-    print(f"Notas con título y tráfico real -- agosto: {len(actual_df)}, julio: {len(anterior_df)}")
+    actual_df = _cargar_periodo("2026_09", "septiembre")
+    anterior_df = _cargar_periodo("2026_08", "agosto")
+    print(f"Notas con título y tráfico real -- septiembre: {len(actual_df)}, agosto: {len(anterior_df)}")
 
     todos_titulos = pd.concat([actual_df["titulo"], anterior_df["titulo"]])
     propios = construir_propios(todos_titulos)
@@ -110,7 +110,7 @@ def main():
 
     actual = _extraer_por_periodo(actual_df, propios)
     anterior = _extraer_por_periodo(anterior_df, propios)
-    print(f"Entidades/temas detectados -- actual (agosto): {len(actual)}, anterior (julio): {len(anterior)}")
+    print(f"Entidades/temas detectados -- actual (septiembre): {len(actual)}, anterior (agosto): {len(anterior)}")
 
     comparado = actual.merge(anterior, on=["entidad", "tipo"], how="outer",
                               suffixes=("_actual", "_anterior")).fillna(0)

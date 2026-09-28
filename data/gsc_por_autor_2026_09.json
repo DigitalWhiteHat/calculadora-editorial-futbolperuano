@@ -1,0 +1,86 @@
+{
+  "Gabriel Rey": {
+    "notas_totales": 118,
+    "notas_con_gsc": 96,
+    "pct_cobertura_gsc": 81.4,
+    "clics_busqueda": 20562.0,
+    "impresiones": 1259223.0,
+    "posicion_promedio": 5.690994192450425,
+    "ctr_real": 0.01632911724134645,
+    "notas_top10": 96,
+    "ctr_esperado": 0.5441067957377025,
+    "ctr_indice": 0.5863133469080625
+  },
+  "Gabriel Iberico": {
+    "notas_totales": 171,
+    "notas_con_gsc": 125,
+    "pct_cobertura_gsc": 73.1,
+    "clics_busqueda": 19035.0,
+    "impresiones": 2285887.0,
+    "posicion_promedio": 5.733702400862334,
+    "ctr_real": 0.008327183277213615,
+    "notas_top10": 125,
+    "ctr_esperado": 0.5426848507679478,
+    "ctr_indice": 0.2997793051633779
+  },
+  "Jorge Cruzalegui": {
+    "notas_totales": 136,
+    "notas_con_gsc": 92,
+    "pct_cobertura_gsc": 67.6,
+    "clics_busqueda": 11898.0,
+    "impresiones": 1469219.0,
+    "posicion_promedio": 6.260600584392118,
+    "ctr_real": 0.008098180053484198,
+    "notas_top10": 92,
+    "ctr_esperado": 0.5262406600965622,
+    "ctr_indice": 0.30064518392041994
+  },
+  "Stewart Luya": {
+    "notas_totales": 135,
+    "notas_con_gsc": 94,
+    "pct_cobertura_gsc": 69.6,
+    "clics_busqueda": 15379.0,
+    "impresiones": 994716.0,
+    "posicion_promedio": 6.09972746995122,
+    "ctr_real": 0.015460694308727315,
+    "notas_top10": 94,
+    "ctr_esperado": 0.5310572582398262,
+    "ctr_indice": 0.5687728636962933
+  },
+  "Joaquín Vásquez": {
+    "notas_totales": 166,
+    "notas_con_gsc": 88,
+    "pct_cobertura_gsc": 53.0,
+    "clics_busqueda": 7902.0,
+    "impresiones": 886728.0,
+    "posicion_promedio": 5.939942767116862,
+    "ctr_real": 0.008911413646574823,
+    "notas_top10": 88,
+    "ctr_esperado": 0.5360140935304512,
+    "ctr_indice": 0.32480418605045913
+  },
+  "Enrique Giles": {
+    "notas_totales": 3,
+    "notas_con_gsc": 3,
+    "pct_cobertura_gsc": 100.0,
+    "clics_busqueda": 350.0,
+    "impresiones": 7386.0,
+    "posicion_promedio": 5.247875710804224,
+    "ctr_real": 0.047386948280530736,
+    "notas_top10": 3,
+    "ctr_esperado": 0.5597650264838601,
+    "ctr_indice": 1.6538807938205224
+  },
+  "Robert Luna": {
+    "notas_totales": 15,
+    "notas_con_gsc": 10,
+    "pct_cobertura_gsc": 66.7,
+    "clics_busqueda": 6702.0,
+    "impresiones": 65686.0,
+    "posicion_promedio": 4.098192613342265,
+    "ctr_real": 0.10203087415887709,
+    "notas_top10": 10,
+    "ctr_esperado": 0.6103692862599633,
+    "ctr_indice": 3.265804320440865
+  }
+}

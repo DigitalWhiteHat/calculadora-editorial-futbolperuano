@@ -1,7 +1,7 @@
 """Vista Reemplazos — para cada periodista, quién del resto del equipo podría
 cubrir su sección principal si falta. Espejo de
-calculadora-periodistas/app/reemplazos.py (colombia.com), con ene-ago 2026
-(8 meses reales, misma profundidad que el original). No depende del selector
+calculadora-periodistas/app/reemplazos.py (colombia.com), con ene-sep 2026
+(9 meses reales, misma profundidad que el original). No depende del selector
 de periodo."""
 
 import streamlit as st
@@ -60,7 +60,7 @@ def _tarjeta_candidato(row, rank, recomendado):
         f'<div style="font-weight:700;font-size:1.05rem;color:#1A1A1A">{etiqueta_rank} — {row["autor"]}</div>'
         f'<div style="font-size:0.95rem;color:#475569;margin-top:2px">'
         f'{ICONO_CONFIANZA.get(row["confianza"], "⚪")} confianza {row["confianza"]} · '
-        f'{int(row["notas"])} notas en ene-ago · {row["trafico_por_nota"]:,.0f} tráfico/nota</div></div>'
+        f'{int(row["notas"])} notas en ene-sep · {row["trafico_por_nota"]:,.0f} tráfico/nota</div></div>'
         f'<div style="text-align:right;flex-shrink:0">'
         f'<div style="font-weight:700;color:{fg};font-size:0.92rem;letter-spacing:0.02em">{texto_cobertura.upper()}</div>'
         f'<div style="font-size:0.9rem;color:#64748B;margin-top:2px">{ratio_txt}</div>'
@@ -95,7 +95,7 @@ def _tarjeta_titular(meta, tabla, esp):
             st.caption(f"{icono_nivel} {texto_nivel}")
 
         if candidatos.empty:
-            st.warning(f"Ningún otro periodista tiene notas registradas en {label_seccion} en ene-ago — "
+            st.warning(f"Ningún otro periodista tiene notas registradas en {label_seccion} en ene-sep — "
                        "no hay candidato con experiencia directa.")
             return
         for i, (_, row) in enumerate(candidatos.head(MAX_CANDIDATOS).iterrows(), start=1):
@@ -124,7 +124,7 @@ def _tarjeta_candidato_seccion(row, rank):
         f'<div style="font-weight:700;font-size:1.05rem;color:#1A1A1A">{etiqueta_rank} — {row["autor"]}</div>'
         f'<div style="font-size:0.95rem;color:#475569;margin-top:2px">'
         f'{ICONO_CONFIANZA.get(row["confianza"], "⚪")} confianza {row["confianza"]} · '
-        f'{int(row["notas"])} notas en ene-ago · {row["trafico_por_nota"]:,.0f} tráfico/nota</div></div>'
+        f'{int(row["notas"])} notas en ene-sep · {row["trafico_por_nota"]:,.0f} tráfico/nota</div></div>'
         f'<div style="text-align:right;flex-shrink:0">'
         f'<div style="font-weight:700;color:{fg};font-size:0.92rem;letter-spacing:0.02em">{texto.upper()}</div>'
         f'<div style="font-size:0.9rem;color:#64748B;margin-top:2px">{ratio_txt}</div>'
@@ -160,7 +160,7 @@ def _bloque_por_seccion(periodistas_meta, esp, tabla_periodistas):
             for i, (_, row) in enumerate(candidatos.head(MAX_CANDIDATOS).iterrows(), start=1):
                 _tarjeta_candidato_seccion(row, i)
         else:
-            st.info(f"Nadie más del equipo tiene notas registradas en {label_seccion} en ene-ago.")
+            st.info(f"Nadie más del equipo tiene notas registradas en {label_seccion} en ene-sep.")
 
         con_datos = set(esp[esp["seccion"] == seccion_elegida]["autor"]) | dominantes
         sin_experiencia = sorted(p["nombre"] for p in periodistas_meta if p["nombre"] not in con_datos)
@@ -193,7 +193,7 @@ def render(tabla_periodistas):
     st.subheader("¿Quién puede reemplazar a quién?")
     st.caption(
         "Para cubrir vacaciones, incapacidades o permisos sin afectar el tráfico de la sección: "
-        "candidatos con experiencia REAL de ene-ago 2026 (8 meses de censo completo) en la sección "
+        "candidatos con experiencia REAL de ene-sep 2026 (9 meses de censo completo) en la sección "
         "principal de cada periodista. Confianza: 🟢 alta (≥10 notas) · 🟡 media (3-9) · ⚪ baja (<3). "
         "No mide calidad editorial — solo si el candidato ya genera tráfico comparable ahí mismo."
     )

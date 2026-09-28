@@ -2,8 +2,8 @@
 (colombia.com), adaptado a los datos reales disponibles de futbolperuano.com.
 
 Misma estructura y mismos campos que colombia.com donde hay dato real
-(tráfico/eficiencia/posición histórica ene-ago, EEAT vía JSON-LD+/staff/,
-semáforo SEO real de agosto, notas destacadas con posición real). Lo que
+(tráfico/eficiencia/posición histórica ene-sep, EEAT vía JSON-LD+/staff/,
+semáforo SEO real de septiembre, notas destacadas con posición real). Lo que
 colombia.com calcula con pipelines de minería de texto que acá no existen
 todavía (temas/entidades recurrentes, canibalización, ecuación de titulares)
 se muestra como tarjeta "pendiente" explícita -- nunca fabricado (Principio 4
@@ -45,12 +45,12 @@ ITEMS_EEAT = [
     ("schema_autor_person", "Autor con schema Person", "El JSON-LD del artículo tipa al autor como \"Person\" — identidad formalmente reconocible por Google."),
     ("bio_verificable", "Bio de autor real", "La página /staff/ del periodista tiene una biografía real, no el texto genérico por defecto."),
     ("perfil_social_enlazado", "Perfil social verificable", "El JSON-LD enlaza una red social real del autor (LinkedIn, Instagram, X) — identidad verificable."),
-    ("pct_consistencia_tematica", "Consistencia temática (Expertise)", "% del tráfico del periodista concentrado en su sección más fuerte (ene-ago) — publicar dentro de un cluster definido es señal real de expertise."),
+    ("pct_consistencia_tematica", "Consistencia temática (Expertise)", "% del tráfico del periodista concentrado en su sección más fuerte (ene-sep) — publicar dentro de un cluster definido es señal real de expertise."),
 ]
 ITEMS_EEAT_PENDIENTES = [
     ("Atribución explícita de la información", "% de notas con frases como \"según\", \"informó\", \"confirmó\" — necesita analizar el texto completo del cuerpo, no solo las señales que ya se scrapean para el checklist SEO."),
     ("Cita fuentes externas", "% de notas con enlace saliente a un sitio externo real — el scraper actual descarta enlaces externos a propósito (solo cuenta internos para el checklist SEO), habría que sumar esa extracción."),
-    ("Actualiza notas publicadas", "% de notas con fecha de actualización posterior a la de publicación — el scraper de agosto no capturó dateModified todavía, solo datePublished."),
+    ("Actualiza notas publicadas", "% de notas con fecha de actualización posterior a la de publicación — el scraper de septiembre no capturó dateModified todavía, solo datePublished."),
 ]
 
 
@@ -157,7 +157,7 @@ def _trafico_historico(historial, nombre_display, meta, periodistas_meta):
         with col_titulo:
             st.subheader("Tráfico por mes")
             st.caption(
-                f"Tráfico real generado cada mes ({n_meses} meses reales disponibles: ene-ago 2026, agosto "
+                f"Tráfico real generado cada mes ({n_meses} meses reales disponibles: ene-sep 2026, septiembre "
                 "parcial) — el número bruto, sin ajustar por dificultad de sección."
             )
         otros = [p for p in periodistas_meta if p["slug"] != meta["slug"]]
@@ -214,7 +214,7 @@ def _trafico_historico(historial, nombre_display, meta, periodistas_meta):
 def _eficiencia_historica(historial, nombre_display):
     with st.container(border=True, key="card_eficiencia"):
         st.subheader("Eficiencia normalizada (índice) en el tiempo")
-        st.caption("Datos reales (ene-ago 2026): tráfico ajustado por dificultad de sección de cada mes "
+        st.caption("Datos reales (ene-sep 2026): tráfico ajustado por dificultad de sección de cada mes "
                    "contra la mediana del equipo ese mes = 100.")
         serie = historial.sort_values("mes")
         if serie.empty:
@@ -312,7 +312,7 @@ def _eeat_checklist(fila):
         st.caption(
             "Mejor práctica de Google para medios de noticias (Search Quality Rater Guidelines + checklist "
             "de Google News). 4 ítems con dato real (JSON-LD + página /staff/ + distribución real de tráfico "
-            "ene-ago); 3 quedan \"s/d\" porque necesitan extender el scraper — ver detalle abajo, nunca "
+            "ene-sep); 3 quedan \"s/d\" porque necesitan extender el scraper — ver detalle abajo, nunca "
             "fabricados."
         )
         for clave, titulo, detalle in ITEMS_EEAT:
@@ -525,7 +525,7 @@ def _cumplimiento_seo(fila):
             if evaluadas >= total:
                 st.caption(f"Las {total} notas del periodo fueron evaluadas a fondo con el checklist SEO completo.")
         else:
-            st.caption("Semáforo SEO real solo corrido para agosto 2026 por ahora.")
+            st.caption("Semáforo SEO real solo corrido para septiembre 2026 por ahora.")
 
 
 def _diagnostico_seo(fila):
@@ -595,7 +595,7 @@ def _rendimiento_por_seccion(meta):
     with st.container(border=True, key="card_entidades_fuertes"):
         st.subheader("En qué secciones le rinde escribir")
         st.caption(
-            "Tráfico/nota real por sección, combinando ene-ago 2026 (8 meses de censo completo). "
+            "Tráfico/nota real por sección, combinando ene-sep 2026 (9 meses de censo completo). "
             "Confianza: 🟢 alta (≥10 notas) · 🟡 media "
             "(3-9) · ⚪ baja (<3, indicativo)."
         )
@@ -615,7 +615,7 @@ def _rendimiento_por_seccion(meta):
             dif_color = badge_dificultad.get(dif_categoria, "blue")
             st.markdown(
                 f"{icono} **{label}** &nbsp; " + pill(dif_categoria.upper(), dif_color) +
-                f" — {r['trafico_por_nota']:,.0f} tráfico/nota ({int(r['notas'])} notas en ene-ago)".replace(",", "."),
+                f" — {r['trafico_por_nota']:,.0f} tráfico/nota ({int(r['notas'])} notas en ene-sep)".replace(",", "."),
                 unsafe_allow_html=True,
             )
             st.write("")
@@ -628,7 +628,7 @@ def _entidades_y_temas(meta):
     with st.container(border=True, key="card_entidades_temas"):
         st.subheader("Temas y entidades en los que le rinde")
         st.caption(
-            "Extraído en automático del título real de cada nota (8 meses ene-ago 2026) — 🏷️ entidad "
+            "Extraído en automático del título real de cada nota (9 meses ene-sep 2026) — 🏷️ entidad "
             "(persona/equipo/torneo/lugar identificable) · 📌 tema (frase recurrente, no una entidad "
             "única). Vigencia (¿sigue generando tráfico HOY o ya se enfrió?) todavía no disponible: "
             "necesita una serie diaria real de Search Console que el exportador automático recién "
@@ -669,8 +669,8 @@ def _pipeline_pendiente():
     with st.container(border=True, key="card_pipeline_pendiente"):
         st.subheader("Pendiente — todavía no construido")
         st.caption(
-            "El dato base (roster, tráfico, Search Console, entidades/temas) ya tiene 8 meses reales de "
-            "censo completo (ene-ago 2026). Lo que sigue pendiente necesita un análisis distinto, no más "
+            "El dato base (roster, tráfico, Search Console, entidades/temas) ya tiene 9 meses reales de "
+            "censo completo (ene-sep 2026). Lo que sigue pendiente necesita un análisis distinto, no más "
             "historial:"
         )
         st.markdown(
@@ -684,7 +684,7 @@ def _notas_destacadas(df_notas, slug):
     with st.container(border=True, key="card_notas_destacadas"):
         st.subheader("Notas más vistas del periodo")
         st.caption("De dónde salió el tráfico: ranking de notas individuales con más clics. "
-                   "🟢🟡🔴 = semáforo SEO real (agosto) · ⚪ = sin evaluar. Posición Google real cuando hay dato.")
+                   "🟢🟡🔴 = semáforo SEO real (septiembre) · ⚪ = sin evaluar. Posición Google real cuando hay dato.")
         propias = df_notas[df_notas["slug"] == slug].sort_values("clics", ascending=False).reset_index(drop=True)
         if propias.empty:
             st.caption("No hay notas registradas para este periodista en el periodo.")
@@ -721,8 +721,8 @@ def render(tabla, df_notas, slug: str, periodo=None):
     meta["beat"] = fila["beat"]
 
     st.markdown(info_banner(
-        "Perfil real: roster, tráfico, engagement, Search Console y semáforo SEO (agosto) son datos reales. "
-        "Historial de 8 meses (ene-ago 2026), censo completo. "
+        "Perfil real: roster, tráfico, engagement, Search Console y semáforo SEO (septiembre) son datos reales. "
+        "Historial de 9 meses (ene-sep 2026), censo completo. "
         "Temas/entidades, ecuación de titulares y canibalización necesitan un pipeline nuevo (ver tarjeta "
         "\"Pendiente\" más abajo) — nunca fabricados."
     ), unsafe_allow_html=True)

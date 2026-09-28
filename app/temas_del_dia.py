@@ -1,5 +1,5 @@
 """Vista Temas del día -- espejo de colombia.com/app/temas_del_dia.py: entidades
-recomendadas de TODO el portal (patrón real de recurrencia, 8 meses ene-ago
+recomendadas de TODO el portal (patrón real de recurrencia, 9 meses ene-sep
 2026, ver data/seleccionar_entidades_prioritarias.py), pensadas como insumo
 para cruzar con keywords en tendencia vía Semrush.
 
@@ -18,7 +18,7 @@ def render():
     st.subheader("🗓️ Temas del día")
     st.info(
         "Entidades/temas prioritarios de TODO el portal, dedupeados -- patrón real de recurrencia "
-        "sobre 8 meses reales de censo completo (ene-ago 2026): al menos 3 meses distintos activo, "
+        "sobre 9 meses reales de censo completo (ene-sep 2026): al menos 3 meses distintos activo, "
         "con demanda todavía cerca de su pico histórico. El cruce con keywords en tendencia vía "
         "Semrush está pendiente por un bloqueo real de cuenta (sin unidades de API desde el "
         "26-ago-2026, afecta a todos los clientes) -- se repone solo, sin tocar código.",
